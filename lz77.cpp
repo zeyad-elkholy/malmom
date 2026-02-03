@@ -22,6 +22,11 @@ bool LZ77::findLongestMatch(const std::vector<unsigned char>& data, int cursor, 
       }
     }
   }
+  if (matchLen >= 3) {
+    return true;
+  }else{
+    return false;
+  }
 }
 LZ77::LZ77()
 {
@@ -32,8 +37,62 @@ LZ77::~LZ77()
 std::vector<LZToken> LZ77::compress(const std::vector<unsigned char>& inputData)
 {
   std::vector<LZToken> tokens;
+  int cursor = 0;
+  while (cursor < inputData.size()) {
+    LZToken token;
+    int matchDist = 0;
+    int matchLen = 0;
+    if (findLongestMatch(inputData , cursor , matchDist , matchLen)){
+      token.isMatch = true;
+      token.literal = 0;
+      token.length = matchLen;
+      token.distance = matchDist;
+      tokens.push_back(token);
+      cursor += matchLen;
+    }else{
+      token.isMatch = false;
+      token.literal = inputData[cursor];
+      token.length = 0;
+      token.distance = 0;
+      tokens.push_back(token);
+      cursor += 1;
 
+    }
+  }
+  return tokens;
 }
 std::vector<unsigned char> LZ77::decompress(const std::vector<LZToken>& tokens)
 {
+  std::vector<unsigned char> outputData(tokens.size() * 2); 
+  for (const auto& token : tokens){
+    if (token.isMatch){
+      int startPos = outputData.size() - token.distance;
+      for (int i = 0; i < token.length; ++i){
+        outputData.push_back(outputData[startPos + i]);
+      }
+    }else{
+      outputData.push_back(token.literal);
+    }
+  }
+  return outputData;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
