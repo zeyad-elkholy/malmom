@@ -5,9 +5,10 @@
 #include <queue>
 #include <functional>
 #include "bit_io.h"
+#include "lz77.h"
 
 struct Node{
-  unsigned char byte;
+  unsigned short symbol;
   unsigned long long freq;
   int left;
   int right;
@@ -15,23 +16,29 @@ struct Node{
 
 class Freqcounter {
   private:
-    unsigned long long freq[256]={0};
+    unsigned long long litLenCounter[286]={0};
+    unsigned long long distCounter[30]={0};
     unsigned long long totalBytes = 0;
   public:
-    void scanFile(const char* filename);
-    const unsigned long long* getFreq();
+    void countTokens(const std::vector<LZToken>& tokens);
+    const unsigned long long* getlitLenCounter()const { return litLenCounter; }
+    const unsigned long long* getdistCounter()const { return distCounter; }
+    void reset() {
+       std::fill(std::begin(litLenCounter), std::end(litLenCounter), 0);
+       std::fill(std::begin(distCounter), std::end(distCounter), 0);
+    }
     unsigned long long getTotalBytes();
 };
 
 class HuffmanTree {
   private:
     std::vector<Node> tree;
-    HuffmanCode codes[256];
+    HuffmanCode codes[286];
     int rootIndex;
     void generateCodes(int nodeIdex, unsigned int path, int length);
   public:
-    bool decode(bitReader& reader, unsigned char& outbyte);
-    HuffmanTree(const unsigned long long* frequencies);
-    HuffmanCode getCode(unsigned char byte);
+    bool decode(bitReader& reader, unsigned short& outsymbol);
+    HuffmanTree(const unsigned long long* frequencies, int numSymbols);
+    HuffmanCode getCode(unsigned short symbol);
 };
 #endif

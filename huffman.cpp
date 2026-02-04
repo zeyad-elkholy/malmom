@@ -1,38 +1,59 @@
 #include "huffman.h"
 
 // --- Freqcounter Implementation ---
-void Freqcounter::scanFile(const char* filename) {
-  std::ifstream file;
-  file.open(filename,std::ios::binary);
-  char buffer[4096];
-  if (!file) {
-      std::cerr << "Error: File could not be opened." << std::endl;
-      return;
-  }
-  while (file.read(buffer, 4096) || file.gcount() >0) {
-    std::streamsize count = file.gcount();
-    totalBytes += count;
-    for (int i = 0 ; i < count ; i++) {
-      unsigned char byte = reinterpret_cast<unsigned char&>(buffer[i]);
-      freq[byte]++;
-    }
-    if(file.eof())break;
-  }
-  file.close();
+// Helper: Map Length (3-258) to Symbol (257-285)
+int getLengthSymbol(int len) {
+    if (len == 258) return 285;
+    if (len >= 3 && len <= 10) return 257 + (len - 3);
+    if (len >= 11 && len <= 18) return 265 + (len - 11) / 2;
+    if (len >= 19 && len <= 34) return 269 + (len - 19) / 4;
+    if (len >= 35 && len <= 66) return 273 + (len - 35) / 8;
+    if (len >= 67 && len <= 130) return 277 + (len - 67) / 16;
+    if (len >= 131 && len <= 257) return 281 + (len - 131) / 32;
+    return 0; // Error
 }
 
-const unsigned long long* Freqcounter::getFreq() {
-  return freq;
+// Helper: Map Distance (1-32768) to Symbol (0-29)
+int getDistSymbol(int dist) {
+    if (dist <= 4) return dist - 1;
+    if (dist <= 8) return 4 + (dist - 5) / 2;
+    if (dist <= 16) return 6 + (dist - 9) / 4;
+    if (dist <= 32) return 8 + (dist - 17) / 8;
+    if (dist <= 64) return 10 + (dist - 33) / 16;
+    if (dist <= 128) return 12 + (dist - 65) / 32;
+    if (dist <= 256) return 14 + (dist - 129) / 64;
+    if (dist <= 512) return 16 + (dist - 257) / 128;
+    if (dist <= 1024) return 18 + (dist - 513) / 256;
+    if (dist <= 2048) return 20 + (dist - 1025) / 512;
+    if (dist <= 4096) return 22 + (dist - 2049) / 1024;
+    if (dist <= 8192) return 24 + (dist - 4097) / 2048;
+    if (dist <= 16384) return 26 + (dist - 8193) / 4096;
+    if (dist <= 32768) return 28 + (dist - 16385) / 8192;
+    return 0; 
 }
 
 unsigned long long Freqcounter::getTotalBytes() {
   return totalBytes;
 }
-
+void Freqcounter::countTokens(const std::vector<LZToken>& tokens)
+{
+  reset();
+  for (const auto& token : tokens) {
+    if (token.isMatch) {
+      int lenSymbol = getLengthSymbol(token.length);
+      litLenCounter[lenSymbol]++;
+      int distSymbol = getDistSymbol(token.distance);
+      distCounter[distSymbol]++;
+    }else {
+      litLenCounter[token.literal]++;
+    }
+  }
+  litLenCounter[256]++;
+}
 // --- HuffmanTree Implementation ---
 void HuffmanTree::generateCodes(int nodeIdex, unsigned int path, int length) {
   if (tree[nodeIdex].left == -1 && tree[nodeIdex].right == -1) {
-    codes[tree[nodeIdex].byte] = {path, length};
+    codes[tree[nodeIdex].symbol] = {path, length};
     return;
   }
   if(tree[nodeIdex].left != -1 ){
@@ -42,7 +63,7 @@ void HuffmanTree::generateCodes(int nodeIdex, unsigned int path, int length) {
     generateCodes(tree[nodeIdex].right, (path << 1) | 1, length + 1);
 }
 
-bool HuffmanTree::decode(bitReader& reader, unsigned char& outbyte){
+bool HuffmanTree::decode(bitReader& reader, unsigned short& outsymbol){
   int currentIndex = rootIndex;
   while (true) {
     int bit = reader.readBit();
@@ -55,22 +76,22 @@ bool HuffmanTree::decode(bitReader& reader, unsigned char& outbyte){
       currentIndex = tree[currentIndex].right;
     }
     if (tree[currentIndex].left == -1 && tree[currentIndex].right == -1) {
-      outbyte = tree[currentIndex].byte;
+      outsymbol= tree[currentIndex].symbol;
       return true;
     }
   }
 }
 
-HuffmanTree::HuffmanTree(const unsigned long long* frequencies){
+HuffmanTree::HuffmanTree(const unsigned long long* frequencies,int numSymbols) {
 std::priority_queue<
         std::pair<long long, int>, 
         std::vector<std::pair<long long, int>>, 
         std::greater<std::pair<long long, int>>
     > pq;
-  for (int i = 0 ; i < 256 ; i++) {
+  for (int i = 0 ; i < numSymbols; i++) {
     if(frequencies[i] > 0){
       Node newNode;
-      newNode.byte = static_cast<unsigned char>(i);
+      newNode.symbol= static_cast<unsigned short>(i);
       newNode.freq = frequencies[i];
       newNode.left = -1;
       newNode.right = -1;
@@ -82,7 +103,7 @@ std::priority_queue<
     auto first = pq.top(); pq.pop();
     auto second = pq.top(); pq.pop();
     Node newNode;
-    newNode.byte = 0;
+    newNode.symbol= 0;
     newNode.freq = first.first + second.first;
     newNode.left = first.second;
     newNode.right = second.second;
@@ -94,6 +115,6 @@ std::priority_queue<
   generateCodes(rootIndex,0,0);
 }
 
-HuffmanCode HuffmanTree::getCode(unsigned char byte){
-  return codes[byte];
+HuffmanCode HuffmanTree::getCode(unsigned short symbol) {
+  return codes[symbol];
 };
