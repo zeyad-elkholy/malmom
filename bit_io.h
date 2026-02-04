@@ -2,6 +2,7 @@
 #define BITIO_H
 #include <fstream>
 #include <iostream>
+#include <vector>
 
 struct HuffmanCode {
   unsigned int bits;
@@ -14,20 +15,21 @@ class bitReader {
   int bitCount;
   public:
     bitReader(const char* filename);
-    bool readHeader(unsigned long long* frequencies, unsigned long long& totalBytes);
-    int readBit();
+    bool readHeader(unsigned long long* litLenFreq,unsigned long long* distFreq, unsigned long long& totalBytes);
+    int readBit(int bits);
     ~bitReader();
+HuffmanCode code;
 };
 
 class BitWriter {
-  std::ofstream file;
-  unsigned char buffer;
-  int bitCount;
+  std::vector<unsigned char>& output;
+  unsigned int buffer;
+  int bitsInBuffer;
   void flush();
   public:
-    BitWriter(const char* filename);
-    void headerWriter(const unsigned long long* frequencies, const unsigned long long& totalBytes);
-    void writeCode(HuffmanCode code);
+    BitWriter(std::vector<unsigned char>& outVector);
+    void headerWriter(const unsigned long long* litLenFreq,const unsigned long long* distFreq, const unsigned long long& totalBytes);
+    void writeBits(unsigned int value, int bits);
     ~BitWriter();
 };
 #endif
