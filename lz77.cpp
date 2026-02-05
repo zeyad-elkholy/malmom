@@ -63,7 +63,8 @@ std::vector<LZToken> LZ77::compress(const std::vector<unsigned char>& inputData)
 }
 std::vector<unsigned char> LZ77::decompress(const std::vector<LZToken>& tokens)
 {
-  std::vector<unsigned char> outputData(tokens.size() * 2); 
+  std::vector<unsigned char> outputData; 
+  outputData.reserve(outputData.size() * 2); 
   for (const auto& token : tokens){
     if (token.isMatch){
       int startPos = outputData.size() - token.distance;
