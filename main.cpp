@@ -59,7 +59,7 @@ void compress(const char* input_file, const char* output_file) {
       Writer.writeBits(h.bits, h.length);
 //x
     }else{
-      int lenSymbol = getLenthSymbol(token.length);
+      int lenSymbol = getLengthSymbol(token.length);
       HuffmanCode lencode = litTree.getCode(lenSymbol);
       Writer.writeBits(lencode.bits, lencode.length);
       int extraLenBits = length_extra_bits[lenSymbol-257];
@@ -107,6 +107,58 @@ void decompress(const char* inputFile, const char* outputFile) {
   while (!endOfBlock) {
     unsigned short sym;
     if (!litTree.decode(reader, sym)) break;
+    LZToken token;
+    if (sym < 256) {
+      token.isMatch = false;
+      token.literal = (unsigned char)sym;
+      tokens.push_back(token);
+    } else if (sym == 256) {
+      endOfBlock = true;
+//x
+    } else {
+      token.isMatch = true;
+      int lenIndex = sym - 257;
+      int lenbase = length_base[lenIndex];
+      int linBits = length_extra_bits[lenIndex];
+      int lenExtra = reader.readBit(linBits);
+      token.length = lenbase + lenExtra;
+      unsigned short distSym;
+      if (!distTree.decode(reader, distSym)) break;
+      int distBase = dist_base[distSym];
+      int distBits = dist_extra_bits[distSym];
+      int distExtra = reader.readBit(distBits);
+      token.distance = distBase + distExtra;
+      tokens.push_back(token);
+    }
   }
+  std::cout << "Performing LZ77 decompression..." << std::endl;
+  LZ77 lz;
+  std::vector<unsigned char> decompressed = lz.decompress(tokens);
+  std::ofstream output(outputFile, std::ios::binary);
+  if (!output) {
+    std::cerr << "Error opening output file: " << outputFile << std::endl;
+    return;
+  }
+  output.write(reinterpret_cast<const char*>(decompressed.data()), decompressed.size());
+  output.close();
+  std::cout << "Decompression completed. Output file: " << outputFile << std::endl;
+}
+int main(int argc, char* argv[]) {
+  if (argc != 4) {
+    std::cerr << "Usage: " << argv[0] << " < -c | -d> <input_file> <output_file>" << std::endl;
+    return 1;
+  }
+  std::string mode = argv[1];
+  const char* inputFile = argv[2];
+  const char* outputFile = argv[3];
+  if (mode == "-c") {
+    compress(inputFile, outputFile);
+  } else if (mode == "-d") {
+    decompress(inputFile, outputFile);
+  } else {
+    std::cerr << "Invalid mode. Use 'compress' or 'decompress'." << std::endl;
+    return 1;
+  }
+  return 0;
 }
 

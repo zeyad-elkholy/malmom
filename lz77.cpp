@@ -1,5 +1,6 @@
 #include "lz77.h"
 #include <vector>
+#include <iostream>
 bool LZ77::findLongestMatch(const std::vector<unsigned char>& data, int cursor, int& matchDist, int& matchLen)
 {
   if ((cursor + 3)>= data.size()) {
@@ -64,10 +65,14 @@ std::vector<LZToken> LZ77::compress(const std::vector<unsigned char>& inputData)
 std::vector<unsigned char> LZ77::decompress(const std::vector<LZToken>& tokens)
 {
   std::vector<unsigned char> outputData; 
-  outputData.reserve(outputData.size() * 2); 
+  outputData.reserve(tokens.size()* 2); 
   for (const auto& token : tokens){
     if (token.isMatch){
       int startPos = outputData.size() - token.distance;
+      if (startPos < 0){
+        continue;
+      }
+
       for (int i = 0; i < token.length; ++i){
         outputData.push_back(outputData[startPos + i]);
       }
@@ -77,23 +82,3 @@ std::vector<unsigned char> LZ77::decompress(const std::vector<LZToken>& tokens)
   }
   return outputData;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

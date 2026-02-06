@@ -41,6 +41,6 @@ class HuffmanTree {
     HuffmanTree(const unsigned long long* frequencies, int numSymbols);
     HuffmanCode getCode(unsigned short symbol);
 };
-int getLenthSymbol(int len);
+int getLengthSymbol(int len);
 int getDistSymbol(int dist);
 #endif

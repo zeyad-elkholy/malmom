@@ -3,7 +3,7 @@
 // --- bitReader Implementation ---
 bool bitReader::readHeader(unsigned long long* litLenFreq,unsigned long long* distFreq, unsigned long long& totalBytes)
 {
-  file.read(reinterpret_cast<char*>(litLenFreq), 256*sizeof(unsigned long long));
+  file.read(reinterpret_cast<char*>(litLenFreq), 286*sizeof(unsigned long long));
   file.read(reinterpret_cast<char*>(distFreq), 30*sizeof(unsigned long long));
   file.read(reinterpret_cast<char*>(&totalBytes), sizeof(unsigned long long));
   return file.good();
@@ -44,7 +44,8 @@ bitReader::~bitReader(){
 void BitWriter::flush()
 {
   if (bitsInBuffer > 0) {
-    output.push_back(static_cast<unsigned char>(buffer << (8 - bitsInBuffer)));
+    buffer =buffer << (8 - bitsInBuffer); // Shift to fill the byte
+    output.push_back(static_cast<unsigned char>(buffer));
     buffer = 0;
     bitsInBuffer = 0;
   }

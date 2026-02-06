@@ -66,7 +66,7 @@ void HuffmanTree::generateCodes(int nodeIdex, unsigned int path, int length) {
 bool HuffmanTree::decode(bitReader& reader, unsigned short& outsymbol){
   int currentIndex = rootIndex;
   while (true) {
-    int bit = reader.readBit();
+    int bit = reader.readBit(1);
     if (bit == -1) {
       return false;
     }
