@@ -45,7 +45,7 @@ void compress(const char* input_file, const char* output_file) {
   Freqcounter fc;
   fc.countTokens(lz77Data);
   std::cout << "building Huffman trees..."<< std::endl;
-  HuffmanTree litTree(fc.getdistCounter(),286);
+  HuffmanTree litTree(fc.getlitLenCounter(),286);
   HuffmanTree disTree(fc.getdistCounter(),30);
   std::vector<unsigned char> compressedBuffer;
   BitWriter Writer(compressedBuffer);
