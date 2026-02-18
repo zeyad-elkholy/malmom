@@ -1,9 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include "huffman.h"
-#include "lz77.h"
-#include "bit_io.h"
+#include "../include/huffman.h"
+#include "../include/lz77.h"
+#include "../include/bit_io.h"
 const int length_base[] = {
     3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23, 27, 31,
     35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258
