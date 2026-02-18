@@ -1,4 +1,4 @@
-#include "bit_io.h"
+#include "../include/bit_io.h"
 
 // --- bitReader Implementation ---
 bool bitReader::readHeader(unsigned long long* litLenFreq,unsigned long long* distFreq, unsigned long long& totalBytes)

@@ -1,4 +1,4 @@
-#include "huffman.h"
+#include "../include/huffman.h"
 
 // --- Freqcounter Implementation ---
 // Helper: Map Length (3-258) to Symbol (257-285)

@@ -1,0 +1,19 @@
+# Compiled binary
+malmom
+
+# Object files
+*.o
+*.obj
+
+# Compiled executables
+*.exe
+*.out
+*.app
+
+# Temporary files
+*.tmp
+*.swp
+*~
+
+# Compressed test files
+*.compressed

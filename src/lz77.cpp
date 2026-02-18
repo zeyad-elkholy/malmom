@@ -1,4 +1,4 @@
-#include "lz77.h"
+#include "../include/lz77.h"
 #include <vector>
 #include <iostream>
 bool LZ77::findLongestMatch(const std::vector<unsigned char>& data, int cursor, int& matchDist, int& matchLen)
