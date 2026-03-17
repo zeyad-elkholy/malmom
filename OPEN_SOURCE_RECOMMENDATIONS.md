@@ -656,6 +656,435 @@
 | Video editor / multimedia software roles | **Blender** or **VideoLAN** |
 | Best "first contribution" for C++ newcomer | **KDE / Kdenlive** (most welcoming) |
 
+---
+
+## G) Next Personal Project Ideas for the CV
+
+> **Context:** malmom proves you can build a complete, correct, non-trivial C++ system from scratch. These projects are chosen to *stack on top of that signal*, fill the gaps recruiters notice, and map directly to roles at FAANG-tier companies.  
+>
+> **Scoring per project (1–5 each):**  
+> - **CV Impact** — how much does this impress a recruiter or senior engineer reviewing your GitHub?  
+> - **FAANG Signal** — how directly does this map to topics that appear in FAANG interviews and job descriptions?  
+> - **Build-on-malmom** — does this extend or complement your existing malmom + video-tools skill set?  
+> - **Scope** — can a single developer build a working MVP in ≤ 8 weeks?  
+> - **Combined** = sum of all four (max 20)
+
+### Priority Ranking Table
+
+| Rank | Combined | Project | CV Impact | FAANG Signal | Builds on malmom | Scope | Stack |
+|------|----------|---------|-----------|-------------|------------------|-------|-------|
+| **1** | **19** | [Custom Memory Allocator](#1-custom-memory-allocator) | ★★★★★ | ★★★★★ | ★★★★★ | ★★★★☆ | C++ |
+| **2** | **18** | [Mini Shell (POSIX)](#2-mini-posix-shell) | ★★★★☆ | ★★★★★ | ★★★★☆ | ★★★★★ | C++ |
+| **3** | **17** | [Key-Value Store with LSM-Tree](#3-key-value-store-with-lsm-tree) | ★★★★★ | ★★★★★ | ★★★★☆ | ★★★☆☆ | C++ |
+| **4** | **17** | [HTTP/1.1 Server from Scratch](#4-http11-server-from-scratch) | ★★★★☆ | ★★★★★ | ★★★★☆ | ★★★★☆ | C++ |
+| **5** | **16** | [Video Frame Fingerprinter](#5-video-frame-fingerprinter) | ★★★★★ | ★★★★☆ | ★★★★★ | ★★★☆☆ | C++ / Python |
+| **6** | **16** | [Bytecode VM / Interpreter](#6-bytecode-vm--interpreter) | ★★★★★ | ★★★★☆ | ★★★★☆ | ★★★☆☆ | C++ |
+| **7** | **15** | [Lock-Free Thread Pool](#7-lock-free-thread-pool) | ★★★★☆ | ★★★★★ | ★★★☆☆ | ★★★★☆ | C++ |
+| **8** | **15** | [Streaming Compressor (LZ4/Zstd-style)](#8-streaming-compressor-lz4zstd-style) | ★★★★☆ | ★★★★☆ | ★★★★★ | ★★★★☆ | C++ |
+| **9** | **13** | [Terminal Video Player (ASCII/Sixel)](#9-terminal-video-player-asciisixel) | ★★★★★ | ★★★☆☆ | ★★★★★ | ★★☆☆☆ | C++ / Lua |
+| **10** | **12** | [mpv Plugin Suite](#10-mpv-plugin-suite) | ★★★☆☆ | ★★★☆☆ | ★★★★★ | ★★★★★ | Lua / Python |
+
+---
+
+### Detailed Project Briefs
+
+---
+
+#### #1 Custom Memory Allocator
+
+**Tagline:** Implement `malloc`, `free`, `realloc`, and `calloc` from scratch using `sbrk`/`mmap`.
+
+**What it demonstrates:**
+- Deep understanding of heap layout, fragmentation, and memory alignment — the exact topics in FAANG memory-systems interviews
+- Knowledge of free-list, best-fit, first-fit, and buddy allocator strategies
+- Shows you can reason about raw memory without safety nets
+
+**FAANG companies most excited by this:**
+| Company | Why |
+|---------|-----|
+| **Google** | Chrome and V8 use custom arenas; jemalloc/tcmalloc internals appear in Google interviews |
+| **Meta** | jemalloc (default Linux allocator) was created by Meta; memory allocator questions are common |
+| **Apple** | libmalloc is a core macOS component; Apple SWE interviews include memory-management depth |
+| **Amazon** | AWS Nitro/embedded systems require allocator knowledge; game-engine-style memory pools appear in Annapurna interviews |
+| **Netflix** | CDN C++ services use custom slab allocators for performance |
+
+**How it connects to malmom:**  
+malmom's `BitWriter` and `LZ77` already do manual buffer management with `std::vector` as a raw byte array. A custom allocator is the logical next step: instead of letting `std::vector` call system `malloc`, you control the heap yourself. The sliding-window buffer in `lz77.cpp` maps directly to a ring-buffer allocator design.
+
+**Technical scope (MVP ~3–4 weeks):**
+1. Implement a first-fit free-list allocator (`malloc_v1.cpp`)
+2. Add coalescing of adjacent free blocks on `free()`
+3. Implement a thread-safe version with a mutex guard
+4. Benchmark against system `malloc` using a microbenchmark harness
+5. Stretch goal: implement a slab allocator for fixed-size objects
+
+**Key files to study:**
+- Doug Lea's `dlmalloc`: https://gee.cs.oswego.edu/dl/html/malloc.html
+- `jemalloc` source: https://github.com/jemalloc/jemalloc
+- CS:APP chapter 9 (Virtual Memory) for background
+
+**GitHub visibility tips:**
+- Include a `DESIGN.md` with a diagram of your free-list layout
+- Add a `bench/` folder with comparison graphs vs. `malloc`
+- Add `ASAN`/`valgrind` clean test suite
+
+---
+
+#### #2 Mini POSIX Shell
+
+**Tagline:** Build a working subset of Bash from scratch: pipes, I/O redirection, job control, and builtins.
+
+**What it demonstrates:**
+- Mastery of `fork`, `exec`, `wait`, `pipe`, `dup2`, `signal` — the core POSIX system call set
+- Process lifecycle management (foreground/background jobs, `SIGCHLD`, `SIGINT` handling)
+- Parsing and tokenization (a mini-compiler front-end skill)
+
+**FAANG companies most excited by this:**
+| Company | Why |
+|---------|-----|
+| **Google** | OS internals depth is heavily tested in Google L4–L5 system design; shell implementation covers fork/exec cold |
+| **Meta** | Meta infra interviews include process management and IPC; a shell covers both |
+| **Apple** | XNU/Darwin kernel internals: a working shell demonstrates POSIX fluency |
+| **Amazon** | Systems-level knowledge for AWS infrastructure roles; EC2/container knowledge starts here |
+
+**How it connects to malmom:**  
+Your DOTs repo shows you live in a shell. `zsh`, `sxhkd`, and custom scripts in `DOTs/scripts/` (including `yth.sh`, `ytm.sh`, `pipesv`) show you already think in terms of pipelines and processes — exactly what a shell implements.
+
+**Technical scope (MVP ~3–5 weeks):**
+1. Tokenizer and parser for command lines (`foo bar | baz > out.txt`)
+2. `fork` + `exec` for external commands
+3. `pipe` + `dup2` for `|` operator
+4. I/O redirection (`<`, `>`, `>>`)
+5. Built-in commands: `cd`, `pwd`, `exit`, `export`, `echo`
+6. Stretch: job control (`&`, `fg`, `bg`, `jobs`), history
+
+**Key resources:**
+- CS:APP chapter 8 (Exceptional Control Flow)
+- `man 2 fork`, `man 2 execve`, `man 2 pipe`
+- Reference shell: https://github.com/nicowillis/minishell (42 school project — great scope model)
+
+**GitHub visibility tips:**
+- Add a `tests/` directory with automated test scripts
+- Record a demo GIF showing pipes and redirections working
+
+---
+
+#### #3 Key-Value Store with LSM-Tree
+
+**Tagline:** Build a LevelDB-like persistent key-value store using a Log-Structured Merge-Tree (SSTable + MemTable).
+
+**What it demonstrates:**
+- Database internals: write path (WAL → MemTable → SSTable), read path (bloom filter → SSTable search)
+- Compaction strategies (leveled or tiered)
+- File I/O, serialization, and crash recovery — directly transferable to database engineer roles
+
+**FAANG companies most excited by this:**
+| Company | Why |
+|---------|-----|
+| **Google** | LevelDB was created by Google (Jeff Dean); Bigtable architecture is the origin of LSM; highly respected project type |
+| **Meta** | RocksDB (Meta's LevelDB fork) is used in every Meta database product; this is Meta's DB team's core technology |
+| **Amazon** | DynamoDB, Aurora storage engine, and Amazon Keyspaces all have LSM internals |
+| **Apple** | FoundationDB (acquired by Apple) uses a similar storage model |
+| **Netflix** | Apache Cassandra (Netflix's primary DB) uses LSM; Netflix engineers contribute to Cassandra |
+
+**How it connects to malmom:**  
+SSTables use prefix compression and delta encoding — concepts directly from malmom's LZ77 dictionary approach. Your `BitWriter` and binary I/O code from `bit_io.cpp` map directly to SSTable binary format encoding. Adding Snappy/LZ4 block compression to SSTables is a natural extension.
+
+**Technical scope (MVP ~6–8 weeks):**
+1. In-memory sorted `MemTable` (Red-Black tree or `std::map`)
+2. WAL (write-ahead log) for crash recovery
+3. SSTable flush: sorted key-value pairs written to disk in binary format
+4. SSTable read: binary search over key index, bloom filter for fast miss detection
+5. Compaction: merge two SSTables into one (merge-sort style)
+6. Stretch: multi-level compaction, snappy block compression
+
+**Key resources:**
+- LevelDB implementation notes: https://github.com/google/leveldb/blob/main/doc/impl.md
+- "The Log-Structured Merge-Tree" paper (O'Neil et al. 1996)
+- Mini-LSM tutorial: https://skyzh.github.io/mini-lsm/ (highly recommended structured guide)
+
+**GitHub visibility tips:**
+- Benchmark against LevelDB (reads/writes per second)
+- Add a `DESIGN.md` with SSTable layout diagrams
+
+---
+
+#### #4 HTTP/1.1 Server from Scratch
+
+**Tagline:** A multi-threaded HTTP/1.1 server using raw POSIX sockets, with persistent connections, chunked transfer encoding, and static file serving.
+
+**What it demonstrates:**
+- Network programming: `socket`, `bind`, `listen`, `accept`, `send`, `recv`
+- HTTP protocol parsing (request line, headers, body)
+- Concurrency: thread-per-connection or thread-pool model
+- I/O multiplexing with `epoll` (Linux) or `select`
+
+**FAANG companies most excited by this:**
+| Company | Why |
+|---------|-----|
+| **Google** | Network stack knowledge is critical for Google infra/SRE; HTTP internals appear in system design rounds |
+| **Meta** | Proxygen (Meta's C++ HTTP framework) is an ideal contribution target after building this |
+| **Amazon** | AWS infrastructure roles; API Gateway internals; backend systems interviews |
+| **Netflix** | CDN edge servers are essentially custom HTTP servers; serving static files at scale is Netflix's core problem |
+
+**How it connects to malmom:**  
+HTTP/1.1 supports `Content-Encoding: deflate` and `Content-Encoding: gzip` — which you now know cold from malmom. An obvious extension is to add compressed response support using your own DEFLATE implementation, turning malmom into a reusable library.
+
+**Technical scope (MVP ~4–5 weeks):**
+1. TCP server: `socket` → `bind` → `listen` → `accept` loop
+2. HTTP request parser: method, URL, headers, body
+3. Static file server: `sendfile` or `read`+`send`
+4. Thread pool for concurrent connections
+5. HTTP response: status line, headers, body
+6. Stretch: `epoll`-based async I/O, chunked transfer, `gzip` response compression (link malmom)
+
+**Key resources:**
+- RFC 7230 (HTTP/1.1): https://www.rfc-editor.org/rfc/rfc7230
+- Beej's Guide to Network Programming: https://beej.us/guide/bgnet/
+- Reference implementation: https://github.com/cmocka/cmocka (testing), https://github.com/nicowillis/webserv (42 school project)
+
+**GitHub visibility tips:**
+- Add an `ab` (ApacheBench) benchmark showing requests/second
+- Showcase `Content-Encoding: deflate` support powered by malmom
+
+---
+
+#### #5 Video Frame Fingerprinter
+
+**Tagline:** A tool that scans a video and detects near-duplicate segments (ads, repeated clips, copyright violations) using perceptual hashing of decoded frames.
+
+**What it demonstrates:**
+- FFmpeg C API for frame-accurate video decoding
+- Perceptual hashing algorithms (dHash, pHash, aHash)
+- C++ / Python interop (C++ core + Python CLI)
+- Practical multimedia engineering — directly relevant to Netflix/YouTube/Meta Video roles
+
+**FAANG companies most excited by this:**
+| Company | Why |
+|---------|-----|
+| **Netflix** | Content ID, duplicate-detection for ad breaks; Netflix Research uses perceptual video similarity |
+| **Google/YouTube** | Content ID system is exactly this at scale; frame fingerprinting is a core YT technology |
+| **Meta** | Video Integrity team detects duplicate/copyright-infringing videos on Facebook/Instagram/Reels |
+| **Amazon** | Amazon Prime Video uses fingerprinting for ad-placement and repeat-detection |
+| **Apple** | Child Safety features and content matching on Apple TV+ use perceptual hashing |
+
+**How it connects to malmom:**  
+Your `Z-youtube-downloader` and `yth.sh`/`ytm.sh` scripts show deep ffmpeg/yt-dlp fluency. You already pipe video through FFmpeg from the command line; this project uses the FFmpeg C library (`libavcodec`, `libavformat`) to do it programmatically — a significant skill upgrade that opens FFmpeg GSoC contribution paths.
+
+**Technical scope (MVP ~5–6 weeks):**
+1. Open video with `libavformat`, decode frames with `libavcodec`
+2. Scale frames to thumbnail size (8×8 to 64×64) using `libswscale`
+3. Compute dHash for each frame: 64-bit fingerprint per frame
+4. Sliding window comparison: Hamming distance between fingerprints
+5. Report duplicate segments: `[00:01:23 → 00:01:45] matches [00:15:00 → 00:15:22]`
+6. Stretch: index fingerprints in a hash table for sub-linear query
+
+**Key resources:**
+- FFmpeg API tutorial: https://ffmpeg.org/doxygen/trunk/
+- dHash explained: http://www.hackerfactor.com/blog/index.php?/archives/529-Kind-of-Like-That.html
+
+**GitHub visibility tips:**
+- Include demo output showing duplicate detection on a test video with repeated ads
+- Very photogenic README with before/after frame comparisons
+
+---
+
+#### #6 Bytecode VM / Interpreter
+
+**Tagline:** Design a small programming language, write a bytecode compiler for it in C++, and build a stack-based virtual machine to execute the bytecode.
+
+**What it demonstrates:**
+- Compiler front-end: lexer, recursive-descent parser, AST
+- Compiler back-end: bytecode emitter (your own instruction set)
+- VM execution: instruction dispatch, call frames, garbage collection basics
+- LLVM/PL knowledge — directly relevant to LLVM GSoC contributions
+
+**FAANG companies most excited by this:**
+| Company | Why |
+|---------|-----|
+| **Google** | V8 (JavaScript VM), Dart VM, Carbon language — Google is deeply invested in language runtimes |
+| **Meta** | HHVM (Hack VM) is LLVM-based; Meta's PyTorch JIT is a bytecode compiler |
+| **Apple** | Swift compiler (LLVM-based); Apple's JavaScriptCore; LLVM is Apple's primary compiler |
+| **Amazon** | Cedar policy language (Amazon's new policy VM); AWS Lambda's execution environments |
+| **Netflix** | Netflix uses Hollow (custom data VM) and Zuul scripting |
+
+**How it connects to malmom:**  
+malmom already builds and traverses Huffman trees — a form of instruction encoding and symbol dispatch. The code emission step in `huffman.cpp` (assigning bit codes to symbols) is conceptually identical to bytecode emission (assigning opcodes to AST nodes).
+
+**Technical scope (MVP ~5–7 weeks):**
+1. Lexer: tokenize source text → token stream
+2. Parser: recursive-descent → AST (expressions, `if`, `while`, functions)
+3. Bytecode compiler: walk AST → emit opcodes into a `std::vector<uint8_t>`
+4. VM: fetch-decode-execute loop over bytecodes
+5. Operations: arithmetic, comparisons, local variables (stack slots), function calls
+6. Stretch: garbage collector (mark-and-sweep), closures
+
+**Key resources:**
+- *Crafting Interpreters* by Robert Nystrom (free online): https://craftinginterpreters.com — the single best resource
+- Lua 5.0 VM source code (C, very readable): https://www.lua.org/source/5.0/
+- Reference implementations: clox (C), lox (Java) from Crafting Interpreters
+
+**GitHub visibility tips:**
+- Show a demo program (e.g., Fibonacci) running on your VM
+- Include a `BYTECODE.md` documenting your instruction set
+
+---
+
+#### #7 Lock-Free Thread Pool
+
+**Tagline:** Implement a work-stealing thread pool with lock-free deques (using C++11 atomics) and benchmark it against a mutex-based pool.
+
+**What it demonstrates:**
+- C++ concurrency: `std::atomic`, `std::thread`, `std::condition_variable`
+- Memory ordering: `acquire/release` semantics, `compare_exchange_weak`
+- Lock-free data structures (the hardest category of C++ interview topics)
+- Performance engineering: cache-line alignment, false sharing avoidance
+
+**FAANG companies most excited by this:**
+| Company | Why |
+|---------|-----|
+| **Google** | Go runtime's goroutine scheduler uses work-stealing; ChromeBase TaskScheduler uses a thread pool |
+| **Meta** | Folly's `CPUThreadPoolExecutor` uses work-stealing; Meta's concurrent infrastructure is atomics-heavy |
+| **Apple** | Grand Central Dispatch (GCD) is Apple's work-stealing thread pool — building this shows you understand GCD's internals |
+| **Amazon** | AWS Nitro hypervisor and Lambda concurrent execution rely on efficient thread pool designs |
+| **Netflix** | RxJava/RxCpp schedulers used in Netflix streaming infrastructure are thread-pool-based |
+
+**How it connects to malmom:**  
+malmom's compression pipeline (LZ77 → Huffman → BitWriter) is a sequential pipeline. A thread pool would let you parallelize LZ77 on multiple file chunks simultaneously — a meaningful performance improvement you can benchmark and include in malmom's README.
+
+**Technical scope (MVP ~3–4 weeks):**
+1. Basic thread pool: `std::vector<std::thread>` + `std::queue<Task>` + mutex
+2. Benchmark baseline: tasks per second with varying thread counts
+3. Replace queue with a lock-free Chase-Lev deque (work-stealing)
+4. Add cache-line padding to avoid false sharing
+5. Benchmark improvement over baseline
+6. Stretch: integrate into malmom for parallel chunk compression
+
+**Key resources:**
+- "The Art of Multiprocessor Programming" (Herlihy & Shavit) — chapters 10–11
+- Chase-Lev deque paper: https://dl.acm.org/doi/10.1145/1073970.1073974
+- `folly::ThreadPoolExecutor` source: https://github.com/facebook/folly
+
+---
+
+#### #8 Streaming Compressor (LZ4/Zstd-style)
+
+**Tagline:** Build a sequel to malmom: a streaming compressor with a framing format, multi-level speed/ratio presets, and support for compressing data larger than RAM.
+
+**What it demonstrates:**
+- Builds directly on malmom — shows growth and depth in the same domain
+- Streaming design: compress input chunk-by-chunk without loading it all into memory
+- Format design: magic bytes, frame header, block checksum (like LZ4 or Zstandard frame formats)
+- Performance engineering: match the speed of reference LZ4 at compression level 1
+
+**FAANG companies most excited by this:**
+| Company | Why |
+|---------|-----|
+| **Meta** | Zstandard (zstd) was created at Meta by Yann Collet; Meta uses zstd everywhere |
+| **Google** | Snappy (Google), Brotli (Google), and ZOPFLI (Google) are Google's compression tools |
+| **Netflix** | Netflix uses Zstandard for metadata compression; stream-based compression is critical for CDN |
+| **Amazon** | AWS S3, Kinesis, and DynamoDB use compression extensively; S3 Select uses column compression |
+| **Apple** | LZFSE (Apple's custom compressor) is used for iOS/macOS update packages |
+
+**How it connects to malmom:**  
+This is the most direct extension of malmom. Key improvements to add:
+1. Streaming I/O (process 64 KB chunks at a time instead of loading full file)  
+2. LZ4-style hash-chain matching (faster than LZ77's quadratic scan in malmom)  
+3. A proper framing format with magic bytes and frame checksums  
+4. Speed/ratio presets (fast mode: hash chain depth 1; best mode: full search)
+
+**Technical scope (MVP ~4–6 weeks):**
+1. Rewrite LZ77 match-finding using a hash table (O(1) amortised vs. O(n) sliding window)
+2. Add streaming API: `compress_begin()`, `compress_chunk()`, `compress_end()`
+3. Define a binary frame format (magic, version, flags, block size, checksum)
+4. Add decompressor that handles streaming input
+5. Benchmark: MB/s compression and decompression speed
+6. Stretch: add zstd-style entropy coding (FSE/ANS) to replace Huffman
+
+**Key resources:**
+- LZ4 frame format spec: https://github.com/lz4/lz4/blob/dev/doc/lz4_Frame_format.md
+- Zstandard format spec: https://github.com/facebook/zstd/blob/dev/doc/zstd_compression_format.md
+- LZ4 source code (very readable C): https://github.com/lz4/lz4
+
+---
+
+#### #9 Terminal Video Player (ASCII/Sixel)
+
+**Tagline:** A terminal-based video player (think `mpv` in your shell) that decodes video via `libavcodec` and renders frames as ANSI 256-color Unicode blocks, sixels, or Kitty protocol images.
+
+**What it demonstrates:**
+- FFmpeg C API (`libavcodec`, `libavformat`, `libswscale`) for real-time video decoding
+- Terminal graphics: ANSI escape codes, sixel graphics, Kitty image protocol
+- Audio sync: `libavcodec` audio decoding + `portaudio` playback
+- Real-time rendering loop (timed to video FPS)
+
+**FAANG companies most excited by this:**
+| Company | Why |
+|---------|-----|
+| **Netflix** | Highly visible project — demonstrates FFmpeg and video decoding expertise |
+| **Google** | YouTube engineering team would notice a standalone video decoder project |
+| **Meta** | Meta's Reels/Stories video playback team works with similar frame decoding pipelines |
+
+**How it connects to malmom:**  
+Your `DOTs/mpv/` configs, `mpv.conf`, Lua scripts, and `yth.sh` / `ytm.sh` show you already have deep mpv/ffmpeg knowledge from the user side. This project crosses you to the developer side of the same tools.
+
+**Technical scope (MVP ~6–8 weeks):**
+1. Decode video frames to RGB using `libavcodec` + `libswscale`
+2. Scale frames to terminal dimensions
+3. Render using Unicode half-block characters (▄ + 256-color ANSI) as a baseline
+4. Add sixel graphics support for high-resolution terminals (mlterm, foot)
+5. Add audio: decode with `libavcodec`, play with `miniaudio` or `portaudio`
+6. Timed playback loop: sleep between frames to match video FPS
+
+**Key resources:**
+- FFmpeg decode tutorial: https://ffmpeg.org/doxygen/trunk/decode__video_8c-example.html
+- Sixel format: https://saitoha.github.io/libsixel/
+- Reference project: `tiv` (Terminal Image Viewer): https://github.com/stefanhaustein/TerminalImageViewer
+
+---
+
+#### #10 mpv Plugin Suite
+
+**Tagline:** A polished collection of Lua/Python mpv scripts that solve real problems, published as a unified repo with documentation, tests, and a website.
+
+**What it demonstrates:**
+- Lua scripting (already your strength from DOTs/mpv)
+- mpv client API (`mp.*` functions, event system)
+- Packaging and distribution (a real open-source product, not a toy)
+- Python interop via `mp.command_native_async` / `subprocess`
+
+**FAANG companies most excited by this:**
+- Less FAANG-critical, but **very strong for multimedia/media companies** (Netflix, YouTube, Spotify)
+- Strong signal for **open-source culture** (GSoC org contributions, community maintainership)
+
+**How it connects to malmom:**  
+Your `DOTs/mpv/` already has scripts. The upgrade here is: packaging them with proper `README.md`, `CHANGELOG`, version tags, and a `tests/` directory (using mpv's `--script` flag + shell assertions).
+
+**Technical scope (MVP ~2–3 weeks):**
+1. Audit existing DOTs/mpv scripts and extract the 3–5 most useful ones
+2. Add documentation (`USAGE.md`, animated GIF demo for each script)
+3. Add basic tests (shell scripts that launch mpv with `--no-video` + `--script` and assert log output)
+4. Publish to https://github.com/mpv-player/mpv/wiki/User-Scripts
+
+---
+
+### Project Quick-Pick Guide
+
+| If you want to target… | Build this |
+|------------------------|-----------|
+| Systems engineering at Google/Apple/Meta | [#1 Memory Allocator](#1-custom-memory-allocator) |
+| OS/infra roles at any FAANG | [#2 Mini Shell](#2-mini-posix-shell) |
+| Database/storage engineer roles | [#3 LSM Key-Value Store](#3-key-value-store-with-lsm-tree) |
+| Backend/infrastructure roles | [#4 HTTP Server](#4-http11-server-from-scratch) |
+| Video/media engineer at Netflix/YouTube | [#5 Video Fingerprinter](#5-video-frame-fingerprinter) |
+| Compiler/language engineer roles | [#6 Bytecode VM](#6-bytecode-vm--interpreter) |
+| Senior C++ concurrency roles | [#7 Thread Pool](#7-lock-free-thread-pool) |
+| Follow-up to malmom (compression depth) | [#8 Streaming Compressor](#8-streaming-compressor-lz4zstd-style) |
+| Multimedia engineer / impressive GitHub | [#9 Terminal Video Player](#9-terminal-video-player-asciisixel) |
+| Best ROI for time invested right now | [#2 Mini Shell](#2-mini-posix-shell) (most universal signal) |
+
+---
+
 | Resource | URL |
 |----------|-----|
 | Your GitHub profile | https://github.com/zeyad-elkholy |
@@ -680,3 +1109,10 @@
 | **Open Robotics (ROS)** ✨ | https://github.com/ros2/rclcpp |
 | **Godot Engine** ✨ | https://github.com/godotengine/godot |
 | **CGAL** ✨ | https://github.com/CGAL/cgal |
+| *Crafting Interpreters* (VM project ref) | https://craftinginterpreters.com |
+| jemalloc (allocator project ref) | https://github.com/jemalloc/jemalloc |
+| LZ4 frame format spec | https://github.com/lz4/lz4/blob/dev/doc/lz4_Frame_format.md |
+| Zstandard spec | https://github.com/facebook/zstd/blob/dev/doc/zstd_compression_format.md |
+| mini-lsm tutorial | https://skyzh.github.io/mini-lsm/ |
+| Beej's Network Guide | https://beej.us/guide/bgnet/ |
+| FFmpeg API docs | https://ffmpeg.org/doxygen/trunk/ |
