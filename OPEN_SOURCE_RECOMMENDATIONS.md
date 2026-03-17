@@ -762,6 +762,7 @@ Your DOTs repo shows you live in a shell. `zsh`, `sxhkd`, and custom scripts in 
 - CS:APP chapter 8 (Exceptional Control Flow)
 - `man 2 fork`, `man 2 execve`, `man 2 pipe`
 - Reference shell: https://github.com/nicowillis/minishell (42 school project — great scope model)
+- **Detailed implementation guide for this project → [`MINI_SHELL_GUIDE.md`](./MINI_SHELL_GUIDE.md)**
 
 **GitHub visibility tips:**
 - Add a `tests/` directory with automated test scripts
