@@ -40,6 +40,11 @@
 | 5 | GNOME | [GSoC 2024](https://summerofcode.withgoogle.com/programs/2024/organizations/gnome) | Pitivi video editor + GStreamer multimedia framework; Python matches your secondary skill | Medium | C / Python |
 | 6 | Xiph.org | [GSoC 2024](https://summerofcode.withgoogle.com/programs/2024/organizations/xiph-org) | Ogg/Vorbis/Opus/FLAC/Theora; audio-video codecs and compression match malmom | Medium | C |
 | 7 | mpv | [GSoC via VideoLAN](https://summerofcode.withgoogle.com/programs/2024/organizations/videolan) | Your exact media player; DOTs/mpv/ shows deep familiarity with config and Lua scripting | Medium–Hard | C / Lua |
+| 8 | Blender Foundation | [GSoC 2024](https://summerofcode.withgoogle.com/programs/2024/organizations/blender-foundation) | 3D/video pipeline in C++ + Python; video sequence editor hits your media interest | Medium | C++ / Python |
+| 9 | LLVM | [GSoC 2024](https://summerofcode.withgoogle.com/programs/2024/organizations/llvm-compiler-infrastructure) | C++ compiler infrastructure; low-level systems match malmom's bit-manipulation work | Hard | C++ |
+| 10 | Python Software Foundation | [GSoC 2024](https://summerofcode.withgoogle.com/programs/2024/organizations/python-software-foundation) | Python is your secondary language; CPython and stdlib improvements are well-scoped | Medium | Python / C |
+| 11 | OpenCV | [GSoC 2024](https://summerofcode.withgoogle.com/programs/2024/organizations/opencv) | C++ computer vision and video processing; matches your video + C++ interests | Medium | C++ / Python |
+| 12 | GNU Project | [GSoC 2024](https://summerofcode.withgoogle.com/programs/2024/organizations/gnu-project) | gzip/bzip2/xz are in the GNU ecosystem; DEFLATE knowledge from malmom applies | Medium | C / C++ |
 
 ---
 
@@ -185,6 +190,111 @@
 
 ---
 
+#### 8. Blender Foundation · [github.com/blender/blender](https://github.com/blender/blender)
+
+**GSoC page:** https://summerofcode.withgoogle.com/programs/2024/organizations/blender-foundation  
+**Project ideas:** https://developer.blender.org/docs/handbook/contributing/gsoc/
+
+**Why it matches you:**  
+- Blender's **Video Sequence Editor (VSE)** is a non-linear video editor written in C++ — combining your C++ skills with your video processing interest (`time_video_calc.sh`, mpv).  
+- Blender has extensive Python scripting for automation; your ZYTgui Python GUI experience transfers directly.  
+- GSoC 2024 projects included VSE improvements, codec integrations, and Python API enhancements — all aligned with your interests.  
+- Blender uses DEFLATE for its `.blend` file format (zlib-compressed), so your malmom knowledge is directly applicable.
+
+**Newcomer path:**
+- Contributing guide: https://developer.blender.org/docs/handbook/contributing/  
+- Good first issues: https://projects.blender.org/blender/blender/issues?type=bug&label=&milestone=0&project=0&assignees=&poster=&q=good+first+issue  
+- GSoC project ideas: https://developer.blender.org/docs/handbook/contributing/gsoc/
+
+**Difficulty:** Medium  
+**Stack:** C, C++, Python
+
+---
+
+#### 9. LLVM · [github.com/llvm/llvm-project](https://github.com/llvm/llvm-project)
+
+**GSoC page:** https://summerofcode.withgoogle.com/programs/2024/organizations/llvm-compiler-infrastructure  
+**Project ideas:** https://llvm.org/OpenProjects.html
+
+**Why it matches you:**  
+- LLVM is the industry-standard C++ compiler infrastructure — writing C++ to improve C++ tooling is the most direct match for your malmom work.  
+- LLVM uses bitstream encoding (a form of variable-length integer packing), conceptually related to your `bit_io.cpp` in malmom.  
+- **Clang** (LLVM's C++ compiler front end) is used to build projects like malmom and mpv; you already implicitly depend on it.  
+- GSoC 2024 ideas included new diagnostic improvements, static analysis, and LLVM IR transformations — well-suited for a systems programmer.
+
+**Newcomer path:**
+- Contributing guide: https://llvm.org/docs/Contributing.html  
+- Good first issues: https://github.com/llvm/llvm-project/issues?q=is%3Aopen+label%3A%22good+first+issue%22  
+- GSoC project ideas: https://llvm.org/OpenProjects.html
+
+**Difficulty:** Hard  
+**Stack:** C++
+
+---
+
+#### 10. Python Software Foundation · [github.com/python](https://github.com/python)
+
+**GSoC page:** https://summerofcode.withgoogle.com/programs/2024/organizations/python-software-foundation  
+**Project ideas:** https://python-gsoc.org/
+
+**Why it matches you:**  
+- Python is your secondary language: Z-youtube-downloader, ZYTgui, and PRODIGY_SD_04 are all Python projects in your profile.  
+- The PSF sponsors GSoC work on **CPython** itself, as well as sub-orgs like **PyPy**, **SymPy** (matches competitive programming), and **pip**.  
+- `zlib` is part of CPython's standard library (`import zlib`) — your DEFLATE knowledge from malmom gives you a unique edge on compression-related CPython improvements.  
+- Python's `compileall`, `zipfile`, and `tarfile` modules all touch the compression domain you know deeply.
+
+**Newcomer path:**
+- Contributing guide: https://devguide.python.org/  
+- Good first issues: https://github.com/python/cpython/issues?q=is%3Aopen+label%3A%22easy%22  
+- GSoC project ideas: https://python-gsoc.org/
+
+**Difficulty:** Medium  
+**Stack:** Python, C
+
+---
+
+#### 11. OpenCV · [github.com/opencv/opencv](https://github.com/opencv/opencv)
+
+**GSoC page:** https://summerofcode.withgoogle.com/programs/2024/organizations/opencv  
+**Project ideas:** https://github.com/opencv/opencv/wiki/GSoC_2024
+
+**Why it matches you:**  
+- OpenCV is the world's most widely used computer vision library, written in C++ with Python bindings — both your primary and secondary languages.  
+- Video processing is a core OpenCV use case: reading video frames, applying filters, and writing output maps directly to your `time_video_calc.sh` and video interest areas.  
+- OpenCV uses DEFLATE-compressed PNG I/O internally (through `libpng`/`zlib`), linking it to your malmom compression work.  
+- GSoC 2024 projects included video codec integrations, SIMD optimizations, and deep learning improvements.
+
+**Newcomer path:**
+- Contributing guide: https://github.com/opencv/opencv/wiki/How_to_contribute  
+- Good first issues: https://github.com/opencv/opencv/issues?q=is%3Aopen+label%3A%22good+first+issue%22  
+- GSoC project ideas: https://github.com/opencv/opencv/wiki/GSoC_2024
+
+**Difficulty:** Medium  
+**Stack:** C++, Python
+
+---
+
+#### 12. GNU Project · [gnu.org](https://www.gnu.org)
+
+**GSoC page:** https://summerofcode.withgoogle.com/programs/2024/organizations/gnu-project  
+**Project ideas:** https://www.gnu.org/software/soc-projects/ideas.html
+
+**Why it matches you:**  
+- The GNU Project includes **gzip** (DEFLATE) and **bzip2** (Burrows–Wheeler + Huffman) — compression tools directly in your domain from malmom.  
+- **GNU Octave** (scientific computing) and **GNU Radio** (signal processing) are relevant to your algorithms background from competitive programming.  
+- **GNU Bash** and **GNU coreutils** are what power your DOTs shell scripts (`yth.sh`, `ytm.sh`, `time_video_calc.sh`).  
+- GSoC 2024 GNU ideas included gzip improvements, Octave toolboxes, and coreutils optimizations.
+
+**Newcomer path:**
+- Contributing guide: https://www.gnu.org/help/  
+- gzip issues: https://savannah.gnu.org/bugs/?group=gzip  
+- GSoC project ideas: https://www.gnu.org/software/soc-projects/ideas.html
+
+**Difficulty:** Medium  
+**Stack:** C, C++, Bash
+
+---
+
 ## C) Issue Label Search for Each Organization
 
 | Organization | `good first issue` | `help wanted` | GSoC Ideas List |
@@ -196,6 +306,11 @@
 | GNOME | [Newcomers](https://gitlab.gnome.org/groups/GNOME/-/issues?label_name%5B%5D=4.+Newcomers) | N/A | [GSoC ideas](https://wiki.gnome.org/Outreach/SummerOfCode/2024/Ideas) |
 | Xiph.org | [FLAC issues](https://github.com/xiph/flac/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | [Opus issues](https://github.com/xiph/opus/issues) | [GSoC ideas](https://wiki.xiph.org/Google_Summer_of_Code) |
 | mpv | [link](https://github.com/mpv-player/mpv/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | [link](https://github.com/mpv-player/mpv/issues?q=is%3Aopen+label%3A%22help+wanted%22) | [VideoLAN GSoC](https://wiki.videolan.org/SoC_2024/) |
+| Blender Foundation | [link](https://projects.blender.org/blender/blender/issues?q=good+first+issue) | N/A | [GSoC ideas](https://developer.blender.org/docs/handbook/contributing/gsoc/) |
+| LLVM | [link](https://github.com/llvm/llvm-project/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | [link](https://github.com/llvm/llvm-project/issues?q=is%3Aopen+label%3A%22help+wanted%22) | [open projects](https://llvm.org/OpenProjects.html) |
+| Python Software Foundation | [link](https://github.com/python/cpython/issues?q=is%3Aopen+label%3Aeasy) | N/A | [python-gsoc.org](https://python-gsoc.org/) |
+| OpenCV | [link](https://github.com/opencv/opencv/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | [link](https://github.com/opencv/opencv/issues?q=is%3Aopen+label%3A%22help+wanted%22) | [GSoC ideas](https://github.com/opencv/opencv/wiki/GSoC_2024) |
+| GNU Project | [gzip bugs](https://savannah.gnu.org/bugs/?group=gzip) | N/A | [GSoC ideas](https://www.gnu.org/software/soc-projects/ideas.html) |
 
 ---
 
@@ -209,6 +324,9 @@
 | **Xiph.org / FLAC** | FLAC encoder optimizations, new compression levels, test vectors | malmom's Huffman coder is the same principle as FLAC's Rice coding; C experience matches | https://github.com/xiph/flac/issues |
 | **Xiph.org / Opus** | Opus encoder tuning, documentation, Python binding improvements | Opus is used by mpv (your player); LZ-style pattern reuse is shared conceptually | https://github.com/xiph/opus/issues |
 | **VideoLAN (VLC)** | Codec module for a new compression format; existing codec bug fixes | VLC handles the same file types your mpv config handles | https://wiki.videolan.org/SoC_2024/ |
+| **GNU Project / gzip** | DEFLATE performance patches, test coverage, documentation improvements | gzip is the reference DEFLATE implementation — malmom implements the same RFC 1951 spec | https://savannah.gnu.org/bugs/?group=gzip |
+| **Python PSF / zlib module** | CPython `zlib` module improvements, edge case fixes in `zipfile`/`tarfile` | `import zlib` in Python is the same compression algorithm you built in malmom | https://github.com/python/cpython/issues?q=is%3Aopen+label%3Aeasy |
+| **Blender Foundation** | `.blend` file zlib decompression improvements; VSE codec integration | Blender uses DEFLATE internally; malmom is direct background | https://developer.blender.org/docs/handbook/contributing/gsoc/ |
 
 ### Subtitle-Related Opportunities (GSoC orgs only)
 
@@ -218,6 +336,21 @@
 | **FFmpeg** | Subtitle demuxer fixes, ASS/SSA filter improvements | FFmpeg is the subtitle processing engine behind mpv; your C knowledge applies | https://trac.ffmpeg.org/query?status=open&difficulty=easy |
 | **VideoLAN (VLC)** | Subtitle renderer improvements, new subtitle format support | VLC subtitle support is among the most comprehensive; C++ option | https://code.videolan.org/videolan/vlc/-/issues?label_name%5B%5D=Newcomers |
 | **KDE / Kdenlive** | Subtitle track editor in Kdenlive's C++ timeline | C++ matches malmom; Kdenlive has active subtitle editing development | https://bugs.kde.org/buglist.cgi?keywords=junior-jobs |
+
+### Video Processing Opportunities (GSoC orgs only)
+
+| Project | Opportunity | Evidence from your profile | Link |
+|---------|-------------|---------------------------|------|
+| **OpenCV** | Video I/O improvements, Python binding fixes, SIMD optimizations | Video processing interest evident from `time_video_calc.sh`; C++ primary language | https://github.com/opencv/opencv/issues?q=is%3Aopen+label%3A%22good+first+issue%22 |
+| **Blender / VSE** | Video Sequence Editor: new effect, performance fix, or export format | `time_video_calc.sh` and mpv show hands-on video editing interest; C++ + Python | https://projects.blender.org/blender/blender/issues |
+| **GNOME / Pitivi** | New transition, export preset, or GStreamer pipeline fix | Python skills apply; Pitivi + GStreamer covers your video + Python interests | https://gitlab.gnome.org/GNOME/pitivi/-/issues |
+
+### Systems / Algorithms Opportunities (GSoC orgs only)
+
+| Project | Opportunity | Evidence from your profile | Link |
+|---------|-------------|---------------------------|------|
+| **LLVM / Clang** | New compiler diagnostic, static analysis rule, or IR optimization | malmom's bit-manipulation and algorithm work is exactly what LLVM works on | https://github.com/llvm/llvm-project/issues?q=is%3Aopen+label%3A%22good+first+issue%22 |
+| **GNU Project** | Bash improvements, coreutils efficiency, or Octave numerical toolbox | Your DOTs shell scripts (zsh/bash) show daily system scripting; Octave fits CP interest | https://www.gnu.org/software/soc-projects/ideas.html |
 
 ---
 
@@ -263,6 +396,32 @@
 **Effort:** A weekend. C++, CMake, Qt framework.  
 **Direct issue link:** https://bugs.kde.org/buglist.cgi?product=kdenlive&keywords=junior-jobs&bug_status=UNCONFIRMED,NEW,ASSIGNED
 
+### PR #4 — OpenCV: Fix a video I/O or Python binding issue (C++ · Medium)
+
+**Repository:** https://github.com/opencv/opencv  
+**GSoC org:** https://summerofcode.withgoogle.com/programs/2024/organizations/opencv  
+**Why you:** OpenCV is a C++ library with Python bindings — both your primary and secondary stacks. Your `time_video_calc.sh` and video processing interest translate directly to understanding what OpenCV is used for. Video frame reading/writing bugs are well-scoped and accessible to a C++ newcomer.  
+**What to do:**  
+1. Browse good first issues: https://github.com/opencv/opencv/issues?q=is%3Aopen+label%3A%22good+first+issue%22  
+2. Or look at Python binding issues: https://github.com/opencv/opencv/issues?q=is%3Aopen+label%3Apython  
+3. Set up the build: https://docs.opencv.org/4.x/d7/d9f/tutorial_linux_install.html  
+**Effort:** A weekend. CMake build system, C++ and Python.  
+**Direct issue link:** https://github.com/opencv/opencv/issues?q=is%3Aopen+label%3A%22good+first+issue%22
+
+---
+
+### PR #5 — Blender: Fix a VSE (Video Sequence Editor) bug (C++ / Python · Medium)
+
+**Repository:** https://projects.blender.org/blender/blender  
+**GSoC org:** https://summerofcode.withgoogle.com/programs/2024/organizations/blender-foundation  
+**Why you:** Blender's Video Sequence Editor is a non-linear video editor in C++ — hitting your video processing interest alongside your strongest language. Blender also has a rich Python scripting layer (bpy), matching your Python skills from Z-youtube-downloader and ZYTgui. Blender uses zlib/DEFLATE for `.blend` files, so your malmom background gives unique context.  
+**What to do:**  
+1. Browse Blender's issue tracker for VSE bugs: https://projects.blender.org/blender/blender/issues?type=bug&q=VSE  
+2. Or look for Python API documentation issues (easy entry point): https://projects.blender.org/blender/blender/issues?q=python+api  
+3. Follow the developer docs: https://developer.blender.org/docs/handbook/contributing/  
+**Effort:** A weekend. CMake + Ninja build, C++ or Python.  
+**Direct issue link:** https://projects.blender.org/blender/blender/issues
+
 ---
 
 ## Quick Reference: URLs
@@ -282,3 +441,8 @@
 | **Xiph.org (FLAC)** | https://github.com/xiph/flac |
 | **Xiph.org (Opus)** | https://github.com/xiph/opus |
 | **mpv** | https://github.com/mpv-player/mpv |
+| **Blender Foundation** | https://projects.blender.org/blender/blender |
+| **LLVM** | https://github.com/llvm/llvm-project |
+| **Python Software Foundation** | https://github.com/python/cpython |
+| **OpenCV** | https://github.com/opencv/opencv |
+| **GNU Project** | https://www.gnu.org/software/software.html |
