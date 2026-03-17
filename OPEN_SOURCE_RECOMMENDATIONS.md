@@ -2,7 +2,9 @@
 
 > **Analysis date:** 2026-03-17  
 > **Profile:** [github.com/zeyad-elkholy](https://github.com/zeyad-elkholy)  
-> **Evidence base:** 17 public repos · DOTs config files · shell scripts · commit history
+> **Evidence base:** 17 public repos · DOTs config files · shell scripts · commit history  
+> **Filter:** ⚡ **Google Summer of Code (GSoC) organizations only**  
+> GSoC org directory: https://summerofcode.withgoogle.com/programs/2024/organizations
 
 ---
 
@@ -23,49 +25,155 @@
 
 ---
 
-## B) Top 10 Organizations to Contribute To
+## B) Top Organizations to Contribute To (GSoC only)
+
+> All organizations below are confirmed **Google Summer of Code** participants.
 
 ### Summary Table
 
-| # | Organization | Repo | Why it matches you | Difficulty | Stack |
-|---|-------------|------|--------------------|------------|-------|
-| 1 | yt-dlp | [yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp) | You built a YouTube downloader; use yt-dlp scripts daily | Easy–Medium | Python |
-| 2 | mpv-player | [mpv-player/mpv](https://github.com/mpv-player/mpv) | You have custom mpv configs, Lua scripts, keybindings in DOTs | Medium–Hard | C / Lua |
-| 3 | FFmpeg | [FFmpeg/FFmpeg](https://github.com/FFmpeg/FFmpeg) | Powers both mpv and yt-dlp; underpins all your media tooling | Hard | C |
-| 4 | libass | [libass/libass](https://github.com/libass/libass) | Subtitle renderer used by mpv; C library matching your skill level | Medium | C |
-| 5 | Aegisub | [Aegisub/Aegisub](https://github.com/Aegisub/Aegisub) | Subtitle editor; C++ matches malmom background | Medium | C++ |
-| 6 | facebook/zstd | [facebook/zstd](https://github.com/facebook/zstd) | Zstandard compression; directly extends malmom's DEFLATE work | Medium | C / C++ |
-| 7 | google/brotli | [google/brotli](https://github.com/google/brotli) | Brotli compression; C++ with Huffman (you already implemented it) | Medium | C++ |
-| 8 | HandBrake | [HandBrake/HandBrake](https://github.com/HandBrake/HandBrake) | Video transcoding GUI; Python CLI + C backend | Medium | C / Python |
-| 9 | subliminal | [Diaoul/subliminal](https://github.com/Diaoul/subliminal) | Python subtitle downloader; you already use yt-dlp's subtitle flags | Easy | Python |
-| 10 | zlib-ng | [zlib-ng/zlib-ng](https://github.com/zlib-ng/zlib-ng) | Modern zlib; DEFLATE is your exact domain from malmom | Medium | C |
+| # | Organization | GSoC page | Why it matches you | Difficulty | Stack |
+|---|-------------|-----------|---------------------|------------|-------|
+| 1 | FFmpeg | [GSoC 2024](https://summerofcode.withgoogle.com/programs/2024/organizations/ffmpeg) | Powers mpv (your media player) and yt-dlp; DEFLATE codec matches malmom | Hard | C |
+| 2 | VideoLAN (VLC) | [GSoC 2024](https://summerofcode.withgoogle.com/programs/2024/organizations/videolan) | VLC is a media player like mpv; active subtitles + codec work | Medium–Hard | C / C++ |
+| 3 | CCExtractor | [GSoC 2024](https://summerofcode.withgoogle.com/programs/2024/organizations/ccextractor-development) | Dedicated subtitle extraction org; Python + C; directly hits your subtitle focus | Easy–Medium | C / Python |
+| 4 | KDE | [GSoC 2024](https://summerofcode.withgoogle.com/programs/2024/organizations/kde) | Kdenlive video editor is C++; many C++ GSoC projects aligned with your skills | Medium | C++ / Python |
+| 5 | GNOME | [GSoC 2024](https://summerofcode.withgoogle.com/programs/2024/organizations/gnome) | Pitivi video editor + GStreamer multimedia framework; Python matches your secondary skill | Medium | C / Python |
+| 6 | Xiph.org | [GSoC 2024](https://summerofcode.withgoogle.com/programs/2024/organizations/xiph-org) | Ogg/Vorbis/Opus/FLAC/Theora; audio-video codecs and compression match malmom | Medium | C |
+| 7 | mpv | [GSoC via VideoLAN](https://summerofcode.withgoogle.com/programs/2024/organizations/videolan) | Your exact media player; DOTs/mpv/ shows deep familiarity with config and Lua scripting | Medium–Hard | C / Lua |
 
 ---
 
 ### Detailed Notes
 
-#### 1. yt-dlp · [github.com/yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp)
+#### 1. FFmpeg · [github.com/FFmpeg/FFmpeg](https://github.com/FFmpeg/FFmpeg)
+
+**GSoC page:** https://summerofcode.withgoogle.com/programs/2024/organizations/ffmpeg  
+**Project ideas:** https://trac.ffmpeg.org/wiki/SponsoringPrograms/GSoC
 
 **Why it matches you:**  
-- You wrote a YouTube downloader in Python (`Z-youtube-downloader`).  
-- Your DOTs repo contains `scripts/yth.sh` and `scripts/ytm.sh` — both yt-dlp wrappers you use daily.  
-- Python is your secondary language; the codebase is well-structured.
+- FFmpeg is the backbone of mpv (your configured media player) and of all the yt-dlp scripts in your DOTs.  
+- FFmpeg's zlib/DEFLATE codec (`libavcodec/zlib_wrapper.c`) is the production version of what you built from scratch in malmom.  
+- GSoC 2024 ideas included subtitle improvements, new codec support, and performance work.
 
 **Newcomer path:**
-- Contributing guide: https://github.com/yt-dlp/yt-dlp/blob/master/CONTRIBUTING.md  
-- Good first issues: https://github.com/yt-dlp/yt-dlp/issues?q=is%3Aopen+label%3A%22good+first+issue%22  
-- Help wanted: https://github.com/yt-dlp/yt-dlp/issues?q=is%3Aopen+label%3A%22help+wanted%22
+- Contributing guide: https://ffmpeg.org/developer.html  
+- Easy trac tickets: https://trac.ffmpeg.org/query?status=open&difficulty=easy  
+- GSoC project ideas: https://trac.ffmpeg.org/wiki/SponsoringPrograms/GSoC
 
-**Difficulty:** Easy–Medium  
-**Stack:** Python 3
+**Difficulty:** Hard  
+**Stack:** C
 
 ---
 
-#### 2. mpv-player · [github.com/mpv-player/mpv](https://github.com/mpv-player/mpv)
+#### 2. VideoLAN (VLC) · [github.com/videolan](https://github.com/videolan)
+
+**GSoC page:** https://summerofcode.withgoogle.com/programs/2024/organizations/videolan  
+**Project ideas:** https://wiki.videolan.org/SoC_2024/
 
 **Why it matches you:**  
-- Your DOTs repo has a complete `mpv/` directory with `mpv.conf`, `input.conf`, `script-opts/`, and Lua `scripts/`.  
-- You actively customize mpv keybindings and scripts, meaning you already understand the codebase at the user level.
+- VLC is the most widely used open media player — the same category as mpv, which you deeply configure in your DOTs.  
+- VideoLAN GSoC projects span subtitle rendering, codec improvements, and UI work — all hitting your interest areas.  
+- VLC uses C for its core and has C++ modules, matching your primary language.
+
+**Newcomer path:**
+- Contributing guide: https://wiki.videolan.org/Developers_Corner  
+- Good first issues: https://code.videolan.org/videolan/vlc/-/issues?label_name%5B%5D=Newcomers  
+- GSoC project ideas: https://wiki.videolan.org/SoC_2024/
+
+**Difficulty:** Medium–Hard  
+**Stack:** C, C++
+
+---
+
+#### 3. CCExtractor · [github.com/CCExtractor](https://github.com/CCExtractor)
+
+**GSoC page:** https://summerofcode.withgoogle.com/programs/2024/organizations/ccextractor-development  
+**Project ideas:** https://github.com/CCExtractor/ccextractor/wiki/Google-Summer-of-Code-2024
+
+**Why it matches you:**  
+- CCExtractor is entirely focused on subtitle extraction from video files — your exact focus area.  
+- Their main tool is written in C (matching malmom's systems approach), with Python tooling around it.  
+- They have a very welcoming GSoC track record and explicitly publish easy starter tasks.  
+- mpv (which you use) can call CCExtractor to extract embedded subtitles.
+
+**Newcomer path:**
+- Contributing guide: https://github.com/CCExtractor/ccextractor/blob/master/CONTRIBUTING.md  
+- Good first issues: https://github.com/CCExtractor/ccextractor/issues?q=is%3Aopen+label%3A%22good+first+issue%22  
+- GSoC ideas: https://github.com/CCExtractor/ccextractor/wiki/Google-Summer-of-Code-2024
+
+**Difficulty:** Easy–Medium  
+**Stack:** C, Python
+
+---
+
+#### 4. KDE · [github.com/KDE](https://github.com/KDE)
+
+**GSoC page:** https://summerofcode.withgoogle.com/programs/2024/organizations/kde  
+**Project ideas:** https://community.kde.org/GSoC/2024/Ideas
+
+**Why it matches you:**  
+- **Kdenlive** (KDE's video editor) is written in C++ — your primary language from malmom.  
+- KDE has dozens of C++ GSoC projects; you can focus on video/multimedia tools.  
+- Kdenlive has subtitle track support, connecting your C++ and subtitle interests.
+
+**Newcomer path:**
+- Contributing guide: https://community.kde.org/Get_Involved/development  
+- Good first issues: https://bugs.kde.org/buglist.cgi?keywords=junior-jobs  
+- GSoC project ideas: https://community.kde.org/GSoC/2024/Ideas
+
+**Difficulty:** Medium  
+**Stack:** C++, Python, QML
+
+---
+
+#### 5. GNOME · [gitlab.gnome.org/GNOME](https://gitlab.gnome.org/GNOME)
+
+**GSoC page:** https://summerofcode.withgoogle.com/programs/2024/organizations/gnome  
+**Project ideas:** https://wiki.gnome.org/Outreach/SummerOfCode/2024/Ideas
+
+**Why it matches you:**  
+- **Pitivi** (GNOME's video editor, Python + GStreamer) directly hits your video processing and Python interests.  
+- **GStreamer** multimedia framework (C) underpins many media apps and is a GSoC target within GNOME.  
+- Your Linux desktop experience (DOTs: sxhkd, zsh, etc.) means you already run and understand the GNOME ecosystem.
+
+**Newcomer path:**
+- Contributing guide: https://wiki.gnome.org/Newcomers/  
+- Good first issues (GitLab): https://gitlab.gnome.org/groups/GNOME/-/issues?label_name%5B%5D=4.+Newcomers  
+- GSoC project ideas: https://wiki.gnome.org/Outreach/SummerOfCode/2024/Ideas
+
+**Difficulty:** Medium  
+**Stack:** C, Python, GStreamer
+
+---
+
+#### 6. Xiph.org · [github.com/xiph](https://github.com/xiph)
+
+**GSoC page:** https://summerofcode.withgoogle.com/programs/2024/organizations/xiph-org  
+**Project ideas:** https://wiki.xiph.org/Google_Summer_of_Code
+
+**Why it matches you:**  
+- Xiph.org maintains **Opus** (audio codec), **FLAC** (lossless compression), **Ogg** (container), and **Theora/Daala** (video codecs).  
+- FLAC uses a form of LPC + Rice coding, conceptually adjacent to your LZ77 + Huffman work in malmom.  
+- Opus and FLAC are both used by mpv (your media player) for audio decoding.
+
+**Newcomer path:**
+- Contributing guide: https://wiki.xiph.org/Contribute  
+- Issues (FLAC): https://github.com/xiph/flac/issues?q=is%3Aopen+label%3A%22good+first+issue%22  
+- Issues (Opus): https://github.com/xiph/opus/issues  
+- GSoC ideas: https://wiki.xiph.org/Google_Summer_of_Code
+
+**Difficulty:** Medium  
+**Stack:** C
+
+---
+
+#### 7. mpv (via VideoLAN GSoC umbrella) · [github.com/mpv-player/mpv](https://github.com/mpv-player/mpv)
+
+**GSoC umbrella:** https://summerofcode.withgoogle.com/programs/2024/organizations/videolan  
+**Why it matches you:**  
+- You have a complete, customized mpv configuration in your DOTs repo: `mpv.conf`, `input.conf`, Lua `scripts/`, and `script-opts/`.  
+- You are already a power user who understands mpv's scripting API — the next step is contributing to the C core.  
+- mpv contributors have participated in GSoC under the VideoLAN umbrella.
 
 **Newcomer path:**
 - Contributing guide: https://github.com/mpv-player/mpv/blob/master/DOCS/contribute.md  
@@ -77,215 +185,83 @@
 
 ---
 
-#### 3. FFmpeg · [github.com/FFmpeg/FFmpeg](https://ffmpeg.org/developer.html)
-
-**Why it matches you:**  
-- FFmpeg is the backbone of mpv (which you use) and yt-dlp (which you script around).  
-- The DEFLATE/zlib codec in FFmpeg maps directly to your malmom knowledge.
-
-**Newcomer path:**
-- Contributing guide: https://ffmpeg.org/developer.html  
-- Ticket system: https://trac.ffmpeg.org/report/16 (open easy tickets)  
-- GitHub mirror issues: https://github.com/FFmpeg/FFmpeg/issues
-
-**Difficulty:** Hard  
-**Stack:** C
-
----
-
-#### 4. libass · [github.com/libass/libass](https://github.com/libass/libass)
-
-**Why it matches you:**  
-- libass is the subtitle rendering library used by mpv (which is in your DOTs).  
-- It is a focused C library — smaller scope than FFmpeg, easier entry point.  
-- Subtitle work is one of your requested focus areas.
-
-**Newcomer path:**
-- Issues: https://github.com/libass/libass/issues?q=is%3Aopen+label%3A%22good+first+issue%22  
-- All open issues: https://github.com/libass/libass/issues
-
-**Difficulty:** Medium  
-**Stack:** C
-
----
-
-#### 5. Aegisub · [github.com/Aegisub/Aegisub](https://github.com/Aegisub/Aegisub)
-
-**Why it matches you:**  
-- Aegisub is the industry-standard subtitle editor, written in C++ — your primary language.  
-- It uses Lua for automation scripts (which you already write for mpv).  
-- Directly hits both subtitle and C++ interests.
-
-**Newcomer path:**
-- Issues: https://github.com/Aegisub/Aegisub/issues?q=is%3Aopen+label%3A%22help+wanted%22  
-- All open issues: https://github.com/Aegisub/Aegisub/issues
-
-**Difficulty:** Medium  
-**Stack:** C++, Lua
-
----
-
-#### 6. facebook/zstd · [github.com/facebook/zstd](https://github.com/facebook/zstd)
-
-**Why it matches you:**  
-- Zstandard (zstd) is a modern compression library — exactly what malmom implements at a lower level.  
-- Your DEFLATE work (LZ77 + Huffman in malmom) gives you the mental model for zstd's FSE entropy coder.  
-- They welcome documentation, testing, and platform-specific improvements.
-
-**Newcomer path:**
-- Contributing guide: https://github.com/facebook/zstd/blob/dev/CONTRIBUTING.md  
-- Good first issues: https://github.com/facebook/zstd/issues?q=is%3Aopen+label%3A%22good+first+issue%22  
-- Help wanted: https://github.com/facebook/zstd/issues?q=is%3Aopen+label%3A%22help+wanted%22
-
-**Difficulty:** Medium  
-**Stack:** C, C++
-
----
-
-#### 7. google/brotli · [github.com/google/brotli](https://github.com/google/brotli)
-
-**Why it matches you:**  
-- Brotli uses Huffman coding (which you implemented from scratch in malmom/src/huffman.cpp).  
-- C++ and some Python bindings — both in your toolset.  
-- RFC 7932 is the natural next step after RFC 1951 (DEFLATE, which malmom implements).
-
-**Newcomer path:**
-- Issues: https://github.com/google/brotli/issues?q=is%3Aopen+label%3A%22good+first+issue%22  
-- All issues: https://github.com/google/brotli/issues
-
-**Difficulty:** Medium  
-**Stack:** C, C++, Python
-
----
-
-#### 8. HandBrake · [github.com/HandBrake/HandBrake](https://github.com/HandBrake/HandBrake)
-
-**Why it matches you:**  
-- HandBrake is an open video transcoder; its CLI is Python-scriptable and its core is C.  
-- Your `time_video_calc.sh` script and mpv usage show hands-on video processing interest.  
-- The project actively seeks contributors for documentation, new format support, and bug fixes.
-
-**Newcomer path:**
-- Contributing guide: https://github.com/HandBrake/HandBrake/blob/master/CONTRIBUTING.md  
-- Good first issues: https://github.com/HandBrake/HandBrake/issues?q=is%3Aopen+label%3A%22good+first+issue%22  
-- Help wanted: https://github.com/HandBrake/HandBrake/issues?q=is%3Aopen+label%3A%22help+wanted%22
-
-**Difficulty:** Medium  
-**Stack:** C, Python
-
----
-
-#### 9. subliminal · [github.com/Diaoul/subliminal](https://github.com/Diaoul/subliminal)
-
-**Why it matches you:**  
-- Subliminal is a Python library for downloading subtitles — the subtitle equivalent of your youtube downloader.  
-- Pure Python, easy contribution path, well-tested codebase.  
-- Fills your requested "subtitle opportunities" focus area.
-
-**Newcomer path:**
-- Issues: https://github.com/Diaoul/subliminal/issues?q=is%3Aopen+label%3A%22good+first+issue%22  
-- Help wanted: https://github.com/Diaoul/subliminal/issues?q=is%3Aopen+label%3A%22help+wanted%22  
-- All issues: https://github.com/Diaoul/subliminal/issues
-
-**Difficulty:** Easy  
-**Stack:** Python
-
----
-
-#### 10. zlib-ng · [github.com/zlib-ng/zlib-ng](https://github.com/zlib-ng/zlib-ng)
-
-**Why it matches you:**  
-- zlib-ng is a modern, high-performance fork of zlib — the canonical DEFLATE implementation.  
-- Your malmom implements DEFLATE from scratch; this lets you contribute upstream to the real-world library.  
-- They seek SIMD optimizations, platform patches, and test improvements.
-
-**Newcomer path:**
-- Contributing guide: https://github.com/zlib-ng/zlib-ng/blob/develop/CONTRIBUTING.md  
-- Good first issues: https://github.com/zlib-ng/zlib-ng/issues?q=is%3Aopen+label%3A%22good+first+issue%22  
-- Help wanted: https://github.com/zlib-ng/zlib-ng/issues?q=is%3Aopen+label%3A%22help+wanted%22
-
-**Difficulty:** Medium  
-**Stack:** C
-
----
-
 ## C) Issue Label Search for Each Organization
 
-| Organization | `good first issue` | `help wanted` | `first-timers-only` | Roadmap / Ideas |
-|---|---|---|---|---|
-| yt-dlp | [link](https://github.com/yt-dlp/yt-dlp/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | [link](https://github.com/yt-dlp/yt-dlp/issues?q=is%3Aopen+label%3A%22help+wanted%22) | N/A | [wiki](https://github.com/yt-dlp/yt-dlp/wiki) |
-| mpv-player | [link](https://github.com/mpv-player/mpv/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | [link](https://github.com/mpv-player/mpv/issues?q=is%3Aopen+label%3A%22help+wanted%22) | N/A | [roadmap](https://github.com/mpv-player/mpv/issues?q=is%3Aopen+label%3Aroadmap) |
-| FFmpeg | [trac easy](https://trac.ffmpeg.org/query?status=open&difficulty=easy) | N/A | N/A | [trac](https://trac.ffmpeg.org/) |
-| libass | [link](https://github.com/libass/libass/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | [link](https://github.com/libass/libass/issues?q=is%3Aopen+label%3A%22help+wanted%22) | N/A | [issues](https://github.com/libass/libass/issues) |
-| Aegisub | [link](https://github.com/Aegisub/Aegisub/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | [link](https://github.com/Aegisub/Aegisub/issues?q=is%3Aopen+label%3A%22help+wanted%22) | N/A | [issues](https://github.com/Aegisub/Aegisub/issues) |
-| facebook/zstd | [link](https://github.com/facebook/zstd/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | [link](https://github.com/facebook/zstd/issues?q=is%3Aopen+label%3A%22help+wanted%22) | N/A | [roadmap](https://github.com/facebook/zstd/issues?q=label%3Aroadmap) |
-| google/brotli | [link](https://github.com/google/brotli/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | [link](https://github.com/google/brotli/issues) | N/A | [issues](https://github.com/google/brotli/issues) |
-| HandBrake | [link](https://github.com/HandBrake/HandBrake/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | [link](https://github.com/HandBrake/HandBrake/issues?q=is%3Aopen+label%3A%22help+wanted%22) | N/A | [roadmap](https://github.com/HandBrake/HandBrake/milestones) |
-| subliminal | [link](https://github.com/Diaoul/subliminal/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | [link](https://github.com/Diaoul/subliminal/issues?q=is%3Aopen+label%3A%22help+wanted%22) | N/A | [issues](https://github.com/Diaoul/subliminal/issues) |
-| zlib-ng | [link](https://github.com/zlib-ng/zlib-ng/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | [link](https://github.com/zlib-ng/zlib-ng/issues?q=is%3Aopen+label%3A%22help+wanted%22) | N/A | [roadmap](https://github.com/zlib-ng/zlib-ng/issues?q=label%3Aroadmap) |
+| Organization | `good first issue` | `help wanted` | GSoC Ideas List |
+|---|---|---|---|
+| FFmpeg | [trac easy](https://trac.ffmpeg.org/query?status=open&difficulty=easy) | N/A | [GSoC ideas](https://trac.ffmpeg.org/wiki/SponsoringPrograms/GSoC) |
+| VideoLAN (VLC) | [Newcomers](https://code.videolan.org/videolan/vlc/-/issues?label_name%5B%5D=Newcomers) | N/A | [SoC ideas](https://wiki.videolan.org/SoC_2024/) |
+| CCExtractor | [link](https://github.com/CCExtractor/ccextractor/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | [link](https://github.com/CCExtractor/ccextractor/issues?q=is%3Aopen+label%3A%22help+wanted%22) | [GSoC ideas](https://github.com/CCExtractor/ccextractor/wiki/Google-Summer-of-Code-2024) |
+| KDE | [junior-jobs](https://bugs.kde.org/buglist.cgi?keywords=junior-jobs) | N/A | [GSoC ideas](https://community.kde.org/GSoC/2024/Ideas) |
+| GNOME | [Newcomers](https://gitlab.gnome.org/groups/GNOME/-/issues?label_name%5B%5D=4.+Newcomers) | N/A | [GSoC ideas](https://wiki.gnome.org/Outreach/SummerOfCode/2024/Ideas) |
+| Xiph.org | [FLAC issues](https://github.com/xiph/flac/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | [Opus issues](https://github.com/xiph/opus/issues) | [GSoC ideas](https://wiki.xiph.org/Google_Summer_of_Code) |
+| mpv | [link](https://github.com/mpv-player/mpv/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | [link](https://github.com/mpv-player/mpv/issues?q=is%3Aopen+label%3A%22help+wanted%22) | [VideoLAN GSoC](https://wiki.videolan.org/SoC_2024/) |
 
 ---
 
 ## D) Focused Opportunities
 
-### Compression-Related Opportunities
+### Compression-Related Opportunities (GSoC orgs only)
 
 | Project | Opportunity | Evidence from your profile | Link |
 |---------|-------------|---------------------------|------|
-| **facebook/zstd** | Test suite improvements, CLI flag documentation, Windows/macOS build fixes | malmom shows you understand entropy coding and bit-level I/O | https://github.com/facebook/zstd/issues?q=is%3Aopen+label%3A%22good+first+issue%22 |
-| **google/brotli** | Python binding improvements, documentation, test vectors | malmom/src/huffman.cpp is the exact algorithm brotli uses | https://github.com/google/brotli/issues |
-| **zlib-ng/zlib-ng** | Platform CI fixes, test coverage for edge cases, benchmarks | You implemented DEFLATE (RFC 1951) in malmom — you know the spec | https://github.com/zlib-ng/zlib-ng/issues?q=is%3Aopen+label%3A%22good+first+issue%22 |
-| **yt-dlp** | Postprocessor improvements that touch FFmpeg's `-c:v copy` (codec pass-through, i.e., compression decisions) | You script yt-dlp daily; Z-youtube-downloader is your work | https://github.com/yt-dlp/yt-dlp/issues?q=is%3Aopen+label%3A%22good+first+issue%22 |
+| **FFmpeg** | Add or improve a lossless codec; DEFLATE/zlib wrapper improvements; test coverage | malmom implements DEFLATE (RFC 1951) in C++ from scratch — you know the spec cold | https://trac.ffmpeg.org/wiki/SponsoringPrograms/GSoC |
+| **Xiph.org / FLAC** | FLAC encoder optimizations, new compression levels, test vectors | malmom's Huffman coder is the same principle as FLAC's Rice coding; C experience matches | https://github.com/xiph/flac/issues |
+| **Xiph.org / Opus** | Opus encoder tuning, documentation, Python binding improvements | Opus is used by mpv (your player); LZ-style pattern reuse is shared conceptually | https://github.com/xiph/opus/issues |
+| **VideoLAN (VLC)** | Codec module for a new compression format; existing codec bug fixes | VLC handles the same file types your mpv config handles | https://wiki.videolan.org/SoC_2024/ |
 
-### Subtitle-Related Opportunities
+### Subtitle-Related Opportunities (GSoC orgs only)
 
 | Project | Opportunity | Evidence from your profile | Link |
 |---------|-------------|---------------------------|------|
-| **libass** | Font handling, ASS/SSA parser edge cases, documentation | mpv (your media player of choice) uses libass for subtitle rendering | https://github.com/libass/libass/issues |
-| **Aegisub** | Lua automation scripts, C++ UI bug fixes, new format support | You write Lua scripts for mpv; Aegisub is C++ like malmom | https://github.com/Aegisub/Aegisub/issues |
-| **yt-dlp** | Subtitle format support (SRT/VTT/ASS extraction), subtitle merge in postprocessors | You use `--write-subs`/`--embed-subs` flags in your yt-dlp scripts | https://github.com/yt-dlp/yt-dlp/issues?q=is%3Aopen+label%3Asubtitles |
-| **subliminal** | New provider integrations (subtitle sources), language detection improvements | Pure Python, low barrier, directly complements your YouTube downloader workflow | https://github.com/Diaoul/subliminal/issues?q=is%3Aopen+label%3A%22help+wanted%22 |
+| **CCExtractor** | New subtitle format support (SRT/ASS/WebVTT), OCR improvements, Python tooling | You use subtitle flags with yt-dlp daily; mpv (your player) relies on subtitle extraction | https://github.com/CCExtractor/ccextractor/issues?q=is%3Aopen+label%3A%22good+first+issue%22 |
+| **FFmpeg** | Subtitle demuxer fixes, ASS/SSA filter improvements | FFmpeg is the subtitle processing engine behind mpv; your C knowledge applies | https://trac.ffmpeg.org/query?status=open&difficulty=easy |
+| **VideoLAN (VLC)** | Subtitle renderer improvements, new subtitle format support | VLC subtitle support is among the most comprehensive; C++ option | https://code.videolan.org/videolan/vlc/-/issues?label_name%5B%5D=Newcomers |
+| **KDE / Kdenlive** | Subtitle track editor in Kdenlive's C++ timeline | C++ matches malmom; Kdenlive has active subtitle editing development | https://bugs.kde.org/buglist.cgi?keywords=junior-jobs |
 
 ---
 
 ## E) 3 Concrete "First PR" Suggestions (Start This Week)
 
-### PR #1 — yt-dlp: Fix or add a subtitle extractor (Python · Easy)
+### PR #1 — CCExtractor: Fix a subtitle format or add a small feature (C/Python · Easy)
 
-**Repository:** https://github.com/yt-dlp/yt-dlp  
-**Why you:** You built a YouTube downloader in Python and script yt-dlp daily (`yth.sh`, `ytm.sh`). You already know how the tool behaves as a user.  
+**Repository:** https://github.com/CCExtractor/ccextractor  
+**GSoC org:** https://summerofcode.withgoogle.com/programs/2024/organizations/ccextractor-development  
+**Why you:** CCExtractor is the most beginner-friendly GSoC org in this list with an explicit "good first issue" label. It's written in C (which you use in malmom) with Python tooling. Its entire purpose is subtitle extraction, which is one of your focus areas. Your mpv setup depends on subtitle tools like CCExtractor.  
 **What to do:**  
-1. Browse open subtitle-related issues: https://github.com/yt-dlp/yt-dlp/issues?q=is%3Aopen+label%3Asubtitles  
-2. Or look for a broken extractor fix: https://github.com/yt-dlp/yt-dlp/issues?q=is%3Aopen+label%3A%22site+support%22  
-3. Pick a site extractor that's failing, run it locally, add a fix following https://github.com/yt-dlp/yt-dlp/blob/master/CONTRIBUTING.md#adding-support-for-a-new-site  
-**Effort:** A few hours. Python, no build system needed.  
-**Direct issue search:** https://github.com/yt-dlp/yt-dlp/issues?q=is%3Aopen+label%3A%22good+first+issue%22+label%3Asubtitles
+1. Browse good first issues: https://github.com/CCExtractor/ccextractor/issues?q=is%3Aopen+label%3A%22good+first+issue%22  
+2. Or check their GSoC micro-task list (required for applicants, but open to all): https://github.com/CCExtractor/ccextractor/wiki/Google-Summer-of-Code-2024  
+3. Fix a subtitle format parsing bug or improve documentation for a subtitle format  
+**Effort:** A few hours to a day. C or Python, CMake build system.  
+**Direct issue link:** https://github.com/CCExtractor/ccextractor/issues?q=is%3Aopen+label%3A%22good+first+issue%22
 
 ---
 
-### PR #2 — facebook/zstd: Documentation or test improvement (C · Medium)
+### PR #2 — FFmpeg: Fix an easy trac ticket (C · Medium)
 
-**Repository:** https://github.com/facebook/zstd  
-**Why you:** malmom implements DEFLATE (LZ77 + Huffman) in C++. zstd uses the same Huffman coding you already wrote from scratch in `src/huffman.cpp`. Reading zstd source code will feel familiar.  
+**Repository:** https://github.com/FFmpeg/FFmpeg  
+**GSoC org:** https://summerofcode.withgoogle.com/programs/2024/organizations/ffmpeg  
+**Why you:** malmom implements DEFLATE (LZ77 + Huffman) in C++ — the exact algorithm used by FFmpeg's zlib/PNG codec path. You already understand how bit-level I/O and entropy coding work from writing `bit_io.cpp` and `huffman.cpp`. Reading FFmpeg source will feel familiar.  
 **What to do:**  
-1. Browse good first issues: https://github.com/facebook/zstd/issues?q=is%3Aopen+label%3A%22good+first+issue%22  
-2. Or improve test coverage for edge cases in `tests/` — you know how compression edge cases behave  
-3. Alternatively: improve a CLI flag description in `programs/zstdcli.c`  
-**Effort:** A weekend. C knowledge you already have.  
-**Direct issue search:** https://github.com/facebook/zstd/issues?q=is%3Aopen+label%3A%22good+first+issue%22
+1. Find an easy trac ticket: https://trac.ffmpeg.org/query?status=open&difficulty=easy  
+2. Or look for subtitle-related tickets: https://trac.ffmpeg.org/query?status=open&component=avcodec&keywords=~subtitle  
+3. Follow the patch submission guide: https://ffmpeg.org/developer.html#Submitting-patches  
+**Effort:** A weekend. C, Makefile-based build, `make fate` test suite.  
+**Direct issue link:** https://trac.ffmpeg.org/query?status=open&difficulty=easy
 
 ---
 
-### PR #3 — subliminal: Add or fix a subtitle provider (Python · Easy)
+### PR #3 — KDE / Kdenlive: Fix a junior-job C++ bug (C++ · Medium)
 
-**Repository:** https://github.com/Diaoul/subliminal  
-**Why you:** Your DOTs repo shows you regularly download and use subtitles with mpv + yt-dlp. Subliminal is a Python library that downloads subtitles — the natural companion tool.  
+**Repository:** https://invent.kde.org/multimedia/kdenlive  
+**GSoC org:** https://summerofcode.withgoogle.com/programs/2024/organizations/kde  
+**Why you:** Kdenlive is a video editor written in C++ — your primary language from malmom. KDE's "junior-jobs" are curated, appropriately scoped bugs. Your video processing interest (`time_video_calc.sh`) and mpv usage translate directly to understanding a video editor's requirements.  
 **What to do:**  
-1. Browse open issues: https://github.com/Diaoul/subliminal/issues  
-2. Find a subtitle provider that is broken or needs updating  
-3. Follow the provider template in `subliminal/providers/` to add a new source or fix an existing one  
-**Effort:** A few hours. Pure Python, pytest test suite.  
-**Direct issue search:** https://github.com/Diaoul/subliminal/issues?q=is%3Aopen
+1. Browse junior jobs in Kdenlive: https://bugs.kde.org/buglist.cgi?product=kdenlive&keywords=junior-jobs&bug_status=UNCONFIRMED,NEW,ASSIGNED  
+2. Set up the KDE development environment: https://community.kde.org/Get_Involved/development  
+3. Fix a C++ UI bug or add a small feature to the subtitle/caption track  
+**Effort:** A weekend. C++, CMake, Qt framework.  
+**Direct issue link:** https://bugs.kde.org/buglist.cgi?product=kdenlive&keywords=junior-jobs&bug_status=UNCONFIRMED,NEW,ASSIGNED
 
 ---
 
@@ -297,13 +273,12 @@
 | malmom (compression) | https://github.com/zeyad-elkholy/malmom |
 | DOTs (configs+scripts) | https://github.com/zeyad-elkholy/DOTs |
 | Z-youtube-downloader | https://github.com/zeyad-elkholy/Z-youtube-downloader |
-| yt-dlp | https://github.com/yt-dlp/yt-dlp |
-| mpv-player | https://github.com/mpv-player/mpv |
-| FFmpeg | https://github.com/FFmpeg/FFmpeg |
-| libass | https://github.com/libass/libass |
-| Aegisub | https://github.com/Aegisub/Aegisub |
-| facebook/zstd | https://github.com/facebook/zstd |
-| google/brotli | https://github.com/google/brotli |
-| HandBrake | https://github.com/HandBrake/HandBrake |
-| subliminal | https://github.com/Diaoul/subliminal |
-| zlib-ng | https://github.com/zlib-ng/zlib-ng |
+| GSoC org directory 2024 | https://summerofcode.withgoogle.com/programs/2024/organizations |
+| **FFmpeg** | https://github.com/FFmpeg/FFmpeg |
+| **VideoLAN (VLC)** | https://code.videolan.org/videolan/vlc |
+| **CCExtractor** | https://github.com/CCExtractor/ccextractor |
+| **KDE (Kdenlive)** | https://invent.kde.org/multimedia/kdenlive |
+| **GNOME (Pitivi)** | https://gitlab.gnome.org/GNOME/pitivi |
+| **Xiph.org (FLAC)** | https://github.com/xiph/flac |
+| **Xiph.org (Opus)** | https://github.com/xiph/opus |
+| **mpv** | https://github.com/mpv-player/mpv |
