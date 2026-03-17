@@ -311,6 +311,10 @@
 | Python Software Foundation | [link](https://github.com/python/cpython/issues?q=is%3Aopen+label%3Aeasy) | N/A | [python-gsoc.org](https://python-gsoc.org/) |
 | OpenCV | [link](https://github.com/opencv/opencv/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | [link](https://github.com/opencv/opencv/issues?q=is%3Aopen+label%3A%22help+wanted%22) | [GSoC ideas](https://github.com/opencv/opencv/wiki/GSoC_2024) |
 | GNU Project | [gzip bugs](https://savannah.gnu.org/bugs/?group=gzip) | N/A | [GSoC ideas](https://www.gnu.org/software/soc-projects/ideas.html) |
+| Boost C++ Libraries ✨ | [link](https://github.com/boostorg/boost/issues?q=is%3Aopen+label%3A%22help+wanted%22) | [link](https://github.com/boostorg/json/issues) | [GSoC ideas](https://www.boost.org/development/gsoc.html) |
+| Open Robotics (ROS) ✨ | [link](https://github.com/ros2/rclcpp/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | [link](https://github.com/ros2/rclcpp/issues?q=is%3Aopen+label%3A%22help+wanted%22) | [GSoC ideas](https://www.openrobotics.org/blog/google-summer-of-code) |
+| Godot Engine ✨ | [link](https://github.com/godotengine/godot/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | [link](https://github.com/godotengine/godot/issues?q=is%3Aopen+label%3A%22help+wanted%22) | [GSoC results](https://godotengine.org/article/gsoc-2024-results/) |
+| CGAL ✨ | [link](https://github.com/CGAL/cgal/issues?q=is%3Aopen+label%3A%22good+first+issue%22) | N/A | [GSoC ideas](https://github.com/CGAL/cgal/wiki/Project-Ideas) |
 
 ---
 
@@ -424,7 +428,233 @@
 
 ---
 
-## Quick Reference: URLs
+## F) C++ GSoC Orgs — Ranked by Idea List Depth × FAANG Trendiness
+
+> **Scoring method**  
+> Each org is scored on two axes (1–5 each):
+> - **ILD** = *Idea List Depth* — number of project ideas, how well-documented they are, how many mentors are listed  
+> - **FT** = *FAANG Trendiness* — how actively Google / Meta / Amazon / Apple / Netflix use or contribute to the project  
+> - **Combined** = ILD + FT (max 10)  
+>
+> Only C++ primary or C++ significant orgs are listed.  
+> New entrants not in previous sections are marked ✨.
+
+### Master Ranking Table
+
+| Rank | Combined | Org | ILD | FT | Primary FAANG users | GSoC Ideas |
+|------|----------|-----|-----|-----|---------------------|------------|
+| **1** | **10** | **LLVM** | ★★★★★ | ★★★★★ | Apple (primary maintainer), Google, Meta, Amazon, Netflix | [ideas](https://llvm.org/OpenProjects.html) |
+| **1** | **10** | **OpenCV** | ★★★★★ | ★★★★★ | Google Vision AI, Meta AR/Reels, Amazon Rekognition, Netflix VMAF | [ideas](https://github.com/opencv/opencv/wiki/GSoC_2024) |
+| **3** | **8** | **Boost C++ Libraries** ✨ | ★★★★☆ | ★★★★☆ | Google gRPC/Abseil uses Boost internals; Meta, Amazon C++ SDKs | [ideas](https://www.boost.org/development/gsoc.html) |
+| **3** | **8** | **Open Robotics (ROS)** ✨ | ★★★★☆ | ★★★★☆ | Amazon RoboMaker (primary sponsor), Google DeepMind, Meta FAIR | [ideas](https://www.openrobotics.org/blog/google-summer-of-code) |
+| **5** | **7** | **VideoLAN (VLC)** | ★★★★☆ | ★★★☆☆ | Apple QuickTime/FaceTime codecs; Meta Instagram video; Amazon Prime | [ideas](https://wiki.videolan.org/SoC_2024/) |
+| **5** | **7** | **Blender Foundation** | ★★★★☆ | ★★★☆☆ | Netflix original content pipeline; Amazon Deadline/ThinkBox; Google 3D | [ideas](https://developer.blender.org/docs/handbook/contributing/gsoc/) |
+| **7** | **6** | **KDE** | ★★★★☆ | ★★☆☆☆ | Qt used at Amazon/Apple; KDE apps less FAANG-direct | [ideas](https://community.kde.org/GSoC/2024/Ideas) |
+| **7** | **6** | **Godot Engine** ✨ | ★★★☆☆ | ★★★☆☆ | Amazon Luna, Netflix Games, Google Play Games, Meta Quest XR | [ideas](https://godotengine.org/article/gsoc-2024-results/) |
+| **7** | **6** | **CGAL** ✨ | ★★★☆☆ | ★★★☆☆ | Google Maps/Earth geometry; Apple Maps; Amazon Robotics; Meta spatial | [ideas](https://github.com/CGAL/cgal/wiki/Project-Ideas) |
+| **10** | **5** | **GNU Project** | ★★★☆☆ | ★★☆☆☆ | Foundational toolchain everywhere; less "trendy" in cutting-edge FAANG work | [ideas](https://www.gnu.org/software/soc-projects/ideas.html) |
+
+---
+
+### Detailed Notes per Org (C++ focus)
+
+#### 🥇 Rank 1 — LLVM · Combined 10/10
+
+**Idea List Depth ★★★★★:** https://llvm.org/OpenProjects.html lists 30+ project ideas with detailed descriptions, difficulty ratings, required prerequisites, and named mentor contacts. Ideas span Clang (C++ front end), LLVM IR optimizations, new sanitizers (ASAN/MSAN/UBSAN), loop transformations, MLIR dialects, LLDB debugger, and LLD linker — the most elaborate idea list of any GSoC C++ org.
+
+**FAANG Trendiness ★★★★★:**  
+| FAANG | How they use LLVM |
+|-------|------------------|
+| **Apple** | Primary upstream maintainer; Clang is the **default compiler** for all macOS/iOS/Swift code; Apple engineers are top LLVM committers |
+| **Google** | Clang-Tidy, Clang-Format, ASAN/MSAN/UBSAN used in Chromium and Android; Google engineers are major LLVM contributors |
+| **Meta** | HHVM/Hack VM is LLVM-based; Meta's BOLT binary optimizer is in LLVM mainline; heavy clang-format/tidy use across Meta codebases |
+| **Amazon** | LLVM used in AWS Lambda execution environment, FreeRTOS, embedded SDKs |
+| **Netflix** | LLVM-based toolchain for CDN C++ services; uses LLVM sanitizers for QA |
+
+**Why malmom background helps:** Your `bit_io.cpp` and `huffman.cpp` are hand-rolled bit-manipulation — the exact domain of LLVM's bitstream encoding, MC layer, and TableGen backends.
+
+---
+
+#### 🥇 Rank 1 — OpenCV · Combined 10/10
+
+**Idea List Depth ★★★★★:** https://github.com/opencv/opencv/wiki/GSoC_2024 has 20+ well-defined ideas across deep neural network (DNN) module, video I/O, Python/Java bindings, SIMD optimizations, camera calibration, and new algorithms. Each idea includes expected outcomes, skills needed, and a mentor handle.
+
+**FAANG Trendiness ★★★★★:**  
+| FAANG | How they use OpenCV |
+|-------|---------------------|
+| **Google** | Google Photos object recognition, Google Lens, Android Camera2 API internals, Google Vision AI |
+| **Meta** | Instagram/Facebook camera effects, AR filters, object detection in video; Meta AI research uses OpenCV for CV pipelines |
+| **Amazon** | Amazon Rekognition is CV at scale; Amazon Ring cameras use CV; Alexa Vision for Echo Show devices |
+| **Apple** | Core ML + Vision framework overlap heavily with OpenCV concepts; Apple uses similar algorithms internally |
+| **Netflix** | VMAF (video quality metric) uses frame-level CV analysis; Netflix research uses OpenCV for perceptual quality |
+
+**C++ entry point:** OpenCV's DNN module (`modules/dnn/`) is written in C++; good-first-issue labels lead directly to C++ work.
+
+---
+
+#### 🥉 Rank 3 — Boost C++ Libraries ✨ · Combined 8/10
+
+**GSoC page:** https://www.boost.org/development/gsoc.html  
+**GitHub:** https://github.com/boostorg
+
+**Idea List Depth ★★★★☆:** Boost GSoC lists 15–20 ideas annually, typically improvements to existing libraries (Boost.Asio, Boost.Beast, Boost.Geometry, Boost.JSON) or new library proposals that go through the Boost review process. Ideas are well-described with mentor names.
+
+**FAANG Trendiness ★★★★☆:**  
+| FAANG | How they use Boost |
+|-------|-------------------|
+| **Google** | gRPC C++ core uses Boost.Asio patterns; Chromium uses Boost concepts; Google's Abseil was partly inspired by Boost |
+| **Meta** | Meta's Proxygen HTTP framework and many internal C++ services include Boost headers |
+| **Amazon** | AWS C++ SDK uses Boost.Asio for async I/O; AWS IoT Device SDK uses Boost |
+| **Apple** | Boost libraries are used in Apple's open-source projects and internal C++ tooling |
+| **Netflix** | Netflix's CDN C++ services use Boost for networking (Asio) and string handling |
+
+**Why you:** Boost is the most "standardization-path" C++ org — many `std::` features (smart pointers, regex, filesystem) came from Boost. Your deep C++ background from malmom is the right foundation.
+
+**Newcomer path:**
+- Good first issues: https://github.com/boostorg/boost/issues?q=is%3Aopen+label%3A%22help+wanted%22  
+- Boost.JSON (modern JSON library): https://github.com/boostorg/json/issues
+
+---
+
+#### 🥉 Rank 3 — Open Robotics / ROS ✨ · Combined 8/10
+
+**GSoC page:** https://www.openrobotics.org/blog/google-summer-of-code  
+**GitHub:** https://github.com/ros2/rclcpp
+**Org:** Open Source Robotics Foundation (OSRF)
+
+**Idea List Depth ★★★★☆:** ROS GSoC 2024 listed 15–20 ideas across ROS 2 core, simulation (Gazebo, now Ignition), navigation stack (Nav2), manipulation, and hardware interfaces. Ideas include C++ real-time improvements, rclcpp API enhancements, and new driver packages.
+
+**FAANG Trendiness ★★★★☆:**  
+| FAANG | How they use ROS |
+|-------|-----------------|
+| **Amazon** | **Primary sponsor** of ROS 2; AWS RoboMaker runs ROS workloads; Amazon Robotics (warehouse robots) runs ROS; Amazon has dedicated OSS robotics engineers |
+| **Google** | Waymo (Alphabet) runs ROS-based systems for autonomous vehicles; Google DeepMind robotics uses ROS |
+| **Meta** | FAIR robotics lab uses ROS for manipulation research; Meta AI publishes ROS packages |
+| **Apple** | Minimal direct use, though Apple's lidar/spatial computing research touches robotic perception |
+| **Netflix** | Peripheral — not a robotics company |
+
+**C++ focus:** ROS 2's `rclcpp` library is pure modern C++ (C++17); the real-time executor and DDS middleware wrappers are deep C++ systems work.
+
+**Newcomer path:**
+- rclcpp good first issues: https://github.com/ros2/rclcpp/issues?q=is%3Aopen+label%3A%22good+first+issue%22  
+- ROS 2 docs: https://docs.ros.org/en/rolling/Contributing.html
+
+---
+
+#### Rank 5 — VideoLAN (VLC) · Combined 7/10
+
+**Idea List Depth ★★★★☆:** https://wiki.videolan.org/SoC_2024/ lists 10–15 C/C++ project ideas for codecs, subtitle rendering, hardware acceleration, and the mobile VLC port. Each idea has a difficulty rating and mentor.
+
+**FAANG Trendiness ★★★☆☆:**  
+| FAANG | How they use VLC/VideoLAN codecs |
+|-------|----------------------------------|
+| **Apple** | macOS/iOS media framework uses H.264/H.265/AAC codecs from the same MPEG standards VLC implements |
+| **Meta** | Instagram/WhatsApp video streaming uses the same codec stack (H.264, Opus) VLC is built around |
+| **Amazon** | Amazon Prime Video CDN uses similar codec pipelines; Amazon uses libav (FFmpeg fork) for transcoding |
+| **Netflix** | Netflix's custom AV1/VP9 encoding pipeline shares conceptual work with VLC codec R&D |
+| **Google** | Less direct — Google uses custom codecs (VP9/AV1) but VLC implements them too |
+
+**C++ entry point:** VLC's C++ modules in `modules/` — subtitle renderer, Qt UI (VLC desktop is C++/Qt).
+
+---
+
+#### Rank 5 — Blender Foundation · Combined 7/10
+
+**Idea List Depth ★★★★☆:** https://developer.blender.org/docs/handbook/contributing/gsoc/ has 10–15 ideas across the Video Sequence Editor (VSE), geometry nodes (C++), Python API, and rendering. Ideas are well-documented with expected deliverables.
+
+**FAANG Trendiness ★★★☆☆:**  
+| FAANG | How they use Blender |
+|-------|---------------------|
+| **Netflix** | Netflix has **directly funded Blender** development and uses it for original animation content (e.g., "Next Gen", "Invader Zim" test renders). Netflix is a Blender Development Fund member. |
+| **Amazon** | AWS ThinkBox (Deadline render manager) officially supports Blender render farms |
+| **Google** | Google uses Blender for some 3D product visualization and YouTube 3D content |
+| **Meta** | Meta Reality Labs uses Blender for XR asset creation pipelines |
+| **Apple** | Less direct, though USDZ assets for AR Quick Look are sometimes authored in Blender |
+
+**C++ entry point:** `source/blender/editors/space_sequencer/` (VSE), geometry nodes system, and the C++ modifier stack.
+
+---
+
+#### Rank 7 — KDE · Combined 6/10
+
+**Idea List Depth ★★★★☆:** https://community.kde.org/GSoC/2024/Ideas has 20+ ideas, but spread across many apps (Plasma, Kdenlive, Krita, Dolphin) — the C++ ones are primarily Kdenlive and KDE Frameworks.
+
+**FAANG Trendiness ★★☆☆☆:** Qt (KDE's framework) is used at Amazon (some internal tools), Apple (Safari uses WebKit which KDE created), but KDE-specific work is desktop-Linux-focused and not prominent in FAANG product pipelines.
+
+**C++ entry point:** Kdenlive (`invent.kde.org/multimedia/kdenlive`) — C++/Qt timeline, subtitle track, and audio waveform renderer.
+
+---
+
+#### Rank 7 — Godot Engine ✨ · Combined 6/10
+
+**GSoC page:** https://godotengine.org/article/gsoc-2024-results/  
+**GitHub:** https://github.com/godotengine/godot
+
+**Idea List Depth ★★★☆☆:** Godot's GSoC 2024 had ~12 ideas including renderer improvements (Vulkan/Metal), physics engine work, editor UI, and GDExtension C++ API. Ideas are adequately documented.
+
+**FAANG Trendiness ★★★☆☆:**  
+| FAANG | How they use Godot |
+|-------|-------------------|
+| **Amazon** | Amazon Luna game streaming platform hosts Godot-built games; AWS GameLift supports Godot |
+| **Netflix** | Netflix Games publishes mobile games; some studios use Godot |
+| **Google** | Google Play Games supports Godot-built games; past Google Stadia had Godot titles |
+| **Meta** | Meta Quest store has Godot games; Godot 4 supports XR/VR via OpenXR (Meta's standard) |
+| **Apple** | App Store has many Godot iOS games; Apple Silicon is a Godot-supported target |
+
+**C++ entry point:** Godot's engine core is C++ — `scene/`, `servers/rendering/`, `modules/` are all C++. GDExtension allows writing C++ plugins.
+
+**Newcomer path:**
+- Good first issues: https://github.com/godotengine/godot/issues?q=is%3Aopen+label%3A%22good+first+issue%22  
+- Contributing guide: https://docs.godotengine.org/en/stable/contributing/
+
+---
+
+#### Rank 7 — CGAL ✨ · Combined 6/10
+
+**GSoC page:** https://www.cgal.org/gsoc/2024.html  
+**GitHub:** https://github.com/CGAL/cgal
+
+**Idea List Depth ★★★☆☆:** https://github.com/CGAL/cgal/wiki/Project-Ideas has 8–12 ideas focused on new geometry algorithms, performance improvements, and Python bindings. Ideas are technically deep but niche.
+
+**FAANG Trendiness ★★★☆☆:**  
+| FAANG | How they use CGAL |
+|-------|------------------|
+| **Google** | Google Maps and Google Earth 3D building reconstruction uses computational geometry; Waymo autonomous driving uses polygon intersection |
+| **Apple** | Apple Maps 3D reconstruction and spatial computing (Vision Pro) rely on mesh geometry algorithms |
+| **Amazon** | Amazon Robotics uses computational geometry for path planning; AWS Location Services uses polygon operations |
+| **Meta** | Meta Quest spatial mapping uses mesh processing; Meta AI 3D reconstruction research uses similar techniques |
+| **Netflix** | Peripheral — 3D geometry is less central to streaming |
+
+**C++ entry point:** CGAL is header-only C++ (C++17); all algorithms are in `include/CGAL/`. New algorithm contributions follow a rigorous review process.
+
+**Newcomer path:**
+- Good first issues: https://github.com/CGAL/cgal/issues?q=is%3Aopen+label%3A%22good+first+issue%22  
+- Contributing guide: https://github.com/CGAL/cgal/blob/master/CONTRIBUTING.md
+
+---
+
+#### Rank 10 — GNU Project · Combined 5/10
+
+**Idea List Depth ★★★☆☆:** Varies by sub-project. gzip ideas are sparse; GNU Octave has more. Less structured than the higher-ranked orgs.
+
+**FAANG Trendiness ★★☆☆☆:** GNU toolchain (gcc, gdb, gzip, bash) is universally installed at FAANG but it's *foundational infrastructure*, not a technology FAANG actively invests in. The interesting work has largely shifted to LLVM/Clang (see Rank 1).
+
+**Still worth it if:** You want to contribute to gzip/DEFLATE (directly relevant to malmom) and value breadth over FAANG prestige.
+
+---
+
+### C++ Org Quick-Select Guide
+
+| If your goal is… | Pick |
+|------------------|------|
+| Maximum resume impact at Google/Apple/Meta | **LLVM** |
+| Computer vision / AI / video pipeline roles | **OpenCV** |
+| Modern C++ networking / async (backend roles) | **Boost C++ Libraries** |
+| Robotics / autonomous systems roles | **Open Robotics (ROS)** |
+| Game engine / graphics / XR engineering roles | **Godot Engine** |
+| Geometry / spatial computing roles | **CGAL** |
+| Video editor / multimedia software roles | **Blender** or **VideoLAN** |
+| Best "first contribution" for C++ newcomer | **KDE / Kdenlive** (most welcoming) |
 
 | Resource | URL |
 |----------|-----|
@@ -446,3 +676,7 @@
 | **Python Software Foundation** | https://github.com/python/cpython |
 | **OpenCV** | https://github.com/opencv/opencv |
 | **GNU Project** | https://www.gnu.org/software/software.html |
+| **Boost C++ Libraries** ✨ | https://github.com/boostorg/boost |
+| **Open Robotics (ROS)** ✨ | https://github.com/ros2/rclcpp |
+| **Godot Engine** ✨ | https://github.com/godotengine/godot |
+| **CGAL** ✨ | https://github.com/CGAL/cgal |
