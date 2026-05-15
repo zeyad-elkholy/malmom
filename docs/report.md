@@ -6,8 +6,7 @@ Malmom is a C++ DEFLATE-style compression tool that combines an LZ77 front-end w
 
 ## Screenshot References
 
-- **Screenshot Reference 1:** first `<img>` supplied in the issue chat, used as the architecture-optimization requirement reference.
-- **Screenshot Reference 2:** second `<img>` supplied in the issue chat, used as the deliverables and reporting requirement reference.
+<img width="732" height="387" alt="Screenshot_15-ماي_20-12-19_28019" src="https://github.com/user-attachments/assets/cbc6d35a-c380-43af-a253-8c9970c168bf" />
 
 ## Optimizations Applied
 
