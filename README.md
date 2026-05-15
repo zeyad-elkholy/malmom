@@ -55,6 +55,12 @@ For optimized builds, add optimization flags:
 g++ -std=c++11 -O3 -I. src/main.cpp src/bit_io.cpp src/huffman.cpp src/lz77.cpp -o malmom
 ```
 
+For OpenMP-enabled builds:
+
+```bash
+g++ -std=c++11 -O3 -fopenmp -I. src/main.cpp src/bit_io.cpp src/huffman.cpp src/lz77.cpp -o malmom
+```
+
 ## Usage
 
 Malmom provides two modes of operation: compression and decompression.
@@ -80,6 +86,29 @@ Example:
 ```bash
 ./malmom -d document.txt.compressed document_restored.txt
 ```
+
+## Benchmark
+
+Build the project binary, then compile the benchmark helper:
+
+```bash
+g++ -std=c++11 -O3 -fopenmp -I. src/main.cpp src/bit_io.cpp src/huffman.cpp src/lz77.cpp -o malmom
+g++ -std=c++11 -O3 tools/benchmark.cpp -o benchmark
+```
+
+Run the benchmark against the local `malmom` binary:
+
+```bash
+./benchmark ./malmom
+```
+
+Optional second argument lets you choose the generated input size in bytes:
+
+```bash
+./benchmark ./malmom 4194304
+```
+
+The benchmark generates a local test file, runs compression and decompression, and prints input size, output size, compression ratio, compression time, and decompression time.
 
 ### Command-Line Options
 

@@ -29,7 +29,7 @@ private:
     // Helper: Finds the longest match for the data starting at 'cursor'
     // Returns true if a match >= 3 bytes is found.
     // updates 'matchDist' and 'matchLen' by reference.
-    bool findLongestMatch(const std::vector<unsigned char>& data, int cursor, int& matchDist, int& matchLen);
+    bool findLongestMatch(const std::vector<unsigned char>& data, int cursor, int historyStart, int maxLength, int& matchDist, int& matchLen);
 
 public:
     LZ77();

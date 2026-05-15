@@ -1,4 +1,7 @@
 #include "../include/huffman.h"
+#ifdef _OPENMP
+#include <omp.h>
+#endif
 
 // --- Freqcounter Implementation ---
 // Helper: Map Length (3-258) to Symbol (257-285)
@@ -38,6 +41,36 @@ unsigned long long Freqcounter::getTotalBytes() {
 void Freqcounter::countTokens(const std::vector<LZToken>& tokens)
 {
   reset();
+#ifdef _OPENMP
+  #pragma omp parallel
+  {
+    unsigned long long localLitLenCounter[286] = {0};
+    unsigned long long localDistCounter[30] = {0};
+
+    #pragma omp for nowait schedule(static)
+    for (long long i = 0; i < static_cast<long long>(tokens.size()); ++i) {
+      const LZToken& token = tokens[static_cast<std::size_t>(i)];
+      if (token.isMatch) {
+        int lenSymbol = getLengthSymbol(token.length);
+        localLitLenCounter[lenSymbol]++;
+        int distSymbol = getDistSymbol(token.distance);
+        localDistCounter[distSymbol]++;
+      } else {
+        localLitLenCounter[token.literal]++;
+      }
+    }
+
+    #pragma omp critical
+    {
+      for (int i = 0; i < 286; ++i) {
+        litLenCounter[i] += localLitLenCounter[i];
+      }
+      for (int i = 0; i < 30; ++i) {
+        distCounter[i] += localDistCounter[i];
+      }
+    }
+  }
+#else
   for (const auto& token : tokens) {
     if (token.isMatch) {
       int lenSymbol = getLengthSymbol(token.length);
@@ -48,6 +81,7 @@ void Freqcounter::countTokens(const std::vector<LZToken>& tokens)
       litLenCounter[token.literal]++;
     }
   }
+#endif
   litLenCounter[256]++;
 }
 // --- HuffmanTree Implementation ---

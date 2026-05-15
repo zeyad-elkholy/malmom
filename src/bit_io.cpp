@@ -1,5 +1,12 @@
 #include "../include/bit_io.h"
 
+namespace {
+void appendRawBytes(std::vector<unsigned char>& output, const void* data, std::size_t byteCount) {
+  const unsigned char* begin = reinterpret_cast<const unsigned char*>(data);
+  output.insert(output.end(), begin, begin + byteCount);
+}
+}
+
 // --- bitReader Implementation ---
 bool bitReader::readHeader(unsigned long long* litLenFreq,unsigned long long* distFreq, unsigned long long& totalBytes)
 {
@@ -57,18 +64,9 @@ BitWriter::BitWriter(std::vector<unsigned char>& outVector)
 }
 void BitWriter::headerWriter(const unsigned long long* litLenFreq,const unsigned long long* distFreq, const unsigned long long& totalBytes)
 {
-  const char* pLit = reinterpret_cast<const char*>(litLenFreq);
-    for (size_t i = 0; i < 286 * sizeof(unsigned long long); i++) {
-        output.push_back(pLit[i]);
-    }
-  const char* Pdist = reinterpret_cast<const char*>(distFreq);
-    for (size_t i = 0; i < 30 * sizeof(unsigned long long); i++) {
-        output.push_back(Pdist[i]);
-    }
-  const char* pTotal= reinterpret_cast<const char*>(&totalBytes);
-    for (size_t i = 0; i < sizeof(unsigned long long); i++) {
-        output.push_back(pTotal[i]);
-    }
+  appendRawBytes(output, litLenFreq, 286 * sizeof(unsigned long long));
+  appendRawBytes(output, distFreq, 30 * sizeof(unsigned long long));
+  appendRawBytes(output, &totalBytes, sizeof(unsigned long long));
 }
 void BitWriter::writeBits(unsigned int value, int bits)
 {
@@ -87,4 +85,3 @@ BitWriter::~BitWriter()
 {
   flush();
 }
-
